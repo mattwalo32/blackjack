@@ -9,6 +9,7 @@
 /bin/*
 !/bin/data/
 /src/seasocks
+!/src/seasocks/src/app/c/ws_test.c
 
 # general
 
