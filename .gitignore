@@ -8,8 +8,10 @@
 
 /bin/*
 !/bin/data/
+
 /src/seasocks
-!/src/seasocks/src/app/c/ws_test.c
+!/src/seasocks/src/app/c/ws_test.cpp
+!/src/seasocks/CMakeLists
 
 # general
 
