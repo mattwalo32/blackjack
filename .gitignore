@@ -9,10 +9,12 @@
 /bin/*
 !/bin/data/
 
-src/seasocks
-!src/seasocks/src/app/c/ws_test.cpp
-!src/seasocks/src/main/c/CMakeLists.txt
-!src/seasocks/CMakeLists.txt
+/blackjack/src/seasocks/*
+!/blackjack/src/seasocks/src/app/c/ws_test.cpp
+!/blackjack/src/seasocks/src/main/c/CMakeLists.txt
+!/blackjack/src/seasocks/CMakeLists.txt
+!/blackjack/src/seasocks/src/ws_test_web/app.js
+!/blackjack/src/seasocks/src/ws_test_web/index.html
 
 # general
 
