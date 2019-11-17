@@ -1,23 +1,21 @@
 #include "GameConnection.h"
 
-using connection::GameConnection;
-
-void connection::GameConnection::setName(std::string name) { 
+void GameConnection::setName(std::string name) { 
 	clientName = name;
 }
 
-void connection::GameConnection::setType(connection::CONNECTION_TYPE type) {
+void GameConnection::setType(CONNECTION_TYPE type) {
     connectionType = type;
 }
 
-connection::CONNECTION_TYPE connection::GameConnection::getType() { 
+CONNECTION_TYPE GameConnection::getType() { 
 	return connectionType; 
 }
 
-std::string connection::GameConnection::getName() {
+std::string GameConnection::getName() {
     return clientName;
 }
 
-WebSocket* connection::GameConnection::getConnection() { 
+seasocks::WebSocket* GameConnection::getConnection() { 
 	return connection;
 }

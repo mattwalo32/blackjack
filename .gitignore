@@ -9,9 +9,10 @@
 /bin/*
 !/bin/data/
 
-/src/seasocks
-!/src/seasocks/src/app/c/ws_test.cpp
-!/src/seasocks/CMakeLists
+src/seasocks
+!src/seasocks/src/app/c/ws_test.cpp
+!src/seasocks/src/main/c/CMakeLists.txt
+!src/seasocks/CMakeLists.txt
 
 # general
 
