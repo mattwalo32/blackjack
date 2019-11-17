@@ -60,10 +60,14 @@ void GameConnectionManager::removeConnection(seasocks::WebSocket* socket) {
 void GameConnectionManager::processCommand(seasocks::WebSocket* connection, std::string cmd) {
     GameConnection* conn = getGameConnection(connection);
 
+	///std::string msg = "Recieved data: '" + cmd + "'";
+	//connection->send(msg);
+
     // Set Connection Type
     if (cmdHasPrefix(cmd, CMD_TYPE)) {
-		std::string type = cmd.substr(CMD_TYPE.length() - 1);
-		setConnectionType(connection, type);
+		std::string type = cmd.substr(CMD_TYPE.length());
+		setConnectionType(conn, type);
+		return;
     }
 
 	// Only allow commands to be processed if there is a c client.
@@ -72,20 +76,24 @@ void GameConnectionManager::processCommand(seasocks::WebSocket* connection, std:
 		return;
 	}
 
-    // Set Name
-    if (cmdHasPrefix(cmd, CMD_NAME)) {
-        std::string name = cmd.substr(CMD_NAME.length() - 1);
+	// Web Client Commands
+	if (conn->getType() == CONNECTION_TYPE::WEB_CLIENT) {
+		// Set Name
+		if (cmdHasPrefix(cmd, CMD_NAME)) {
+			std::string name = cmd.substr(CMD_NAME.length());
+			setConnectionName(conn, name);
+		}
+	}
 
-        conn->setName(name);
-    }
-	// Deal Card
-	else if (conn->getType() == CONNECTION_TYPE::C_CLIENT && 
-			   cmd.length > CARD_COMMAND_SPLIT_INDEX + 1 &&
-               cmd[CARD_COMMAND_SPLIT_INDEX] == ':') {
-		std::string playerCode = cmd.substr(0, CARD_COMMAND_SPLIT_INDEX + 1);
-		std::string cardCode = cmd.substr(CARD_COMMAND_SPLIT_INDEX);
+	// C Client Commands
+	if (conn->getType() == CONNECTION_TYPE::C_CLIENT) {
+		// Send Card to Player
+		if (cmd.length() > CARD_COMMAND_SPLIT_INDEX + 1 && cmd[CARD_COMMAND_SPLIT_INDEX] == ':') {
+			std::string cardCode = cmd.substr(0, CARD_CODE_LENGTH);
+			std::string playerName = cmd.substr(CARD_COMMAND_SPLIT_INDEX + 1);
 
-		sendCard(conn, playerCode, cardCode);
+			sendCard(conn, playerName, cardCode);
+		}
     }
 }
 
@@ -104,23 +112,44 @@ void GameConnectionManager::setConnectionType(GameConnection* connection, std::s
 	}
 }
 
-void GameConnectionManager::sendCard(GameConnection* connection, std::string playerCode, std::string cardCode) {
+/*
+ * Sets the connection name and notifies the c client. If the name is already
+ * taken, the name is not updated and the client notified.
+ */
+void GameConnectionManager::setConnectionName(GameConnection* connection, std::string name) {
+	bool isUpdatingName = !connection->getName().empty();
+	std::string cClientMsg;
+
+	if (isUpdatingName)
+		cClientMsg = CMD_UPDATE_NAME + connection->getName() + ":" + name;
+	else
+		cClientMsg = CMD_ADD_USER + name;
+
+	if (getConnectionByName(name) != nullptr) {
+		connection->getConnection()->send(MSG_NAME_TAKEN);
+		return;
+	}
+
+	connection->setName(name);
+	cClient->getConnection()->send(cClientMsg);
+}
+
+void GameConnectionManager::sendCard(GameConnection* connection, std::string playerName, std::string cardCode) {
 	int cardNum;
-	int playerNum;
 	
 	try {
 		cardNum = std::stoi(cardCode);
-		playerNum = std::stoi(playerCode);
 	} catch (std::exception e) {
 		return;
 	}
 
-	if (cardNum >= NUM_CARDS_IN_DECK || playerNum >= connections.size())
+	if (cardNum >= NUM_CARDS_IN_DECK)
 		return;
 
 	const std::string dealMsg = CMD_SEND_CARD + std::to_string(cardNum);
-	GameConnection* gameConnection = connections.at(playerNum);
-	gameConnection->getConnection()->send(dealMsg);
+	GameConnection* gameConnection = getConnectionByName(playerName);
+	if(gameConnection != nullptr)
+		gameConnection->getConnection()->send(dealMsg);
 }
 
 /*
@@ -146,7 +175,7 @@ GameConnection* GameConnectionManager::getConnectionByName(std::string name) {
 			return conn;
     }
 
-    throw std::runtime_error("No GameConnection found.");
+	return nullptr;
 }
 
 /*

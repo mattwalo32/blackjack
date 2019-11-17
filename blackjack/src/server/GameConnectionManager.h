@@ -13,8 +13,9 @@ public:
     void removeConnection(seasocks::WebSocket* conn);
 
 	void processCommand(seasocks::WebSocket* connection, std::string cmd);
-	void setConnectionType(seasocks::WebSocket* connection, std::string type);
-	void sendCard(seasocks::WebSocket* connection, std::string playerCode, std::string cardCode);
+	void setConnectionType(GameConnection* connection, std::string type);
+	void setConnectionName(GameConnection* connection, std::string newName);
+	void sendCard(GameConnection* connection, std::string playerName, std::string cardCode);
 	
 	void reset();
 

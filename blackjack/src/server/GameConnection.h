@@ -19,6 +19,6 @@ class GameConnection {
 
    private:
     CONNECTION_TYPE connectionType;
-    std::string clientName;
     seasocks::WebSocket* connection;
+    std::string clientName = "";
 };
