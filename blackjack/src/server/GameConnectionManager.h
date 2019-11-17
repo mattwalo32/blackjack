@@ -9,9 +9,13 @@ class GameConnectionManager {
 public:
     ~GameConnectionManager();
 
-	void processCommand(seasocks::WebSocket* connection, std::string cmd);
 	void addConnection(seasocks::WebSocket* conn);
     void removeConnection(seasocks::WebSocket* conn);
+
+	void processCommand(seasocks::WebSocket* connection, std::string cmd);
+	void setConnectionType(seasocks::WebSocket* connection, std::string type);
+	void sendCard(seasocks::WebSocket* connection, std::string playerCode, std::string cardCode);
+	
 	void reset();
 
 private:

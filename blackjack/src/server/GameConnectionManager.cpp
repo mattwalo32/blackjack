@@ -5,6 +5,10 @@ using namespace ConnectionConstants;
 
 GameConnectionManager::~GameConnectionManager() { connections.clear(); }
 
+/*
+ * Should be called whenever a connection is added to the websocket server.
+ * Checks that server is not full, and adds connection to connection list.
+ */
 void GameConnectionManager::addConnection(seasocks::WebSocket* conn) {
     GameConnection* connection = new GameConnection(conn);
 
@@ -17,13 +21,20 @@ void GameConnectionManager::addConnection(seasocks::WebSocket* conn) {
     numConnections += 1;
 }
 
+/*
+ * Should be called whenever a connection disconnects from the server.
+ * Searches for the connection and removes it from the connection list.
+ * If the connection is the C Client, the game will end.
+ */
 void GameConnectionManager::removeConnection(seasocks::WebSocket* socket) {
     int index = 0;
     bool connFound = false;
+	bool connIsCClient = false;
 
     for (auto conn : connections) {
         if (conn->getConnection() == socket) {
             connFound = true;
+			connIsCClient = conn == cClient;
             break;
         }
 
@@ -32,28 +43,27 @@ void GameConnectionManager::removeConnection(seasocks::WebSocket* socket) {
 
     if (connFound) {
         connections.erase(connections.begin() + index);
+
+		//TODO: Notify players
+		if (connIsCClient)
+			reset();
+
         numConnections -= 1;
     }
 }
 
+/*
+ * This is the main method for handling communication between clients. All
+ * incomin commands are handled. If there is not c client, the only command that
+ * will be handled is the 'set type' command.
+ */
 void GameConnectionManager::processCommand(seasocks::WebSocket* connection, std::string cmd) {
     GameConnection* conn = getGameConnection(connection);
 
     // Set Connection Type
     if (cmdHasPrefix(cmd, CMD_TYPE)) {
-        std::string type = cmd.substr(CMD_TYPE.length() - 1);
-
-		if (type == "0") {
-			conn->setType(CONNECTION_TYPE::WEB_CLIENT);
-		} else if (type == "1") {
-			if (cClient != nullptr) {
-				connection->send(MSG_C_CLIENT_EXISTS);
-				return;
-			}
-
-			conn->setType(CONNECTION_TYPE::C_CLIENT);
-			cClient = getGameConnection(connection);
-		}
+		std::string type = cmd.substr(CMD_TYPE.length() - 1);
+		setConnectionType(connection, type);
     }
 
 	// Only allow commands to be processed if there is a c client.
@@ -72,24 +82,45 @@ void GameConnectionManager::processCommand(seasocks::WebSocket* connection, std:
 	else if (conn->getType() == CONNECTION_TYPE::C_CLIENT && 
 			   cmd.length > CARD_COMMAND_SPLIT_INDEX + 1 &&
                cmd[CARD_COMMAND_SPLIT_INDEX] == ':') {
-		int cardCode;
+		std::string playerCode = cmd.substr(0, CARD_COMMAND_SPLIT_INDEX + 1);
+		std::string cardCode = cmd.substr(CARD_COMMAND_SPLIT_INDEX);
 
-        try {
-            int cardCode = std::stoi(cmd.substr(0, CARD_COMMAND_SPLIT_INDEX + 1));
-        } catch (std::exception e) {
+		sendCard(conn, playerCode, cardCode);
+    }
+}
+
+void GameConnectionManager::setConnectionType(GameConnection* connection, std::string type) {
+	if (type == "0") {
+		connection->setType(CONNECTION_TYPE::WEB_CLIENT);
+	} else if (type == "1") {
+		
+		if (cClient != nullptr) {
+			connection->getConnection()->send(MSG_C_CLIENT_EXISTS);
 			return;
 		}
 
-		if (cardCode >= NUM_CARDS_IN_DECK)
-			return;
+		connection->setType(CONNECTION_TYPE::C_CLIENT);
+		cClient = connection;
+	}
+}
 
-		const std::string dealMsg = CMD_SEND_CARD + std::to_string(cardCode);
-		
-		std::string playerName = cmd.substr(CARD_COMMAND_SPLIT_INDEX);
-		GameConnection* gameConnection = getConnectionByName(playerName);
+void GameConnectionManager::sendCard(GameConnection* connection, std::string playerCode, std::string cardCode) {
+	int cardNum;
+	int playerNum;
+	
+	try {
+		cardNum = std::stoi(cardCode);
+		playerNum = std::stoi(playerCode);
+	} catch (std::exception e) {
+		return;
+	}
 
-		gameConnection->getConnection()->send(dealMsg);
-    }
+	if (cardNum >= NUM_CARDS_IN_DECK || playerNum >= connections.size())
+		return;
+
+	const std::string dealMsg = CMD_SEND_CARD + std::to_string(cardNum);
+	GameConnection* gameConnection = connections.at(playerNum);
+	gameConnection->getConnection()->send(dealMsg);
 }
 
 /*
