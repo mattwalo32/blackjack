@@ -13,6 +13,8 @@ namespace ConnectionConstants {
 
 	const std::string CMD_NAME = "SETNAME:";
 	const std::string CMD_TYPE = "SETTYPE:";
+	const std::string CMD_HIT = "HIT:";
+	const std::string CMD_STAY = "STAY:";
 	const std::string CMD_SEND_CARD = "SEND:";
 	const std::string CMD_ADD_USER = "ADDUSER:";
 	const std::string CMD_UPDATE_NAME = "UPDATENAME:";

@@ -83,6 +83,17 @@ void GameConnectionManager::processCommand(seasocks::WebSocket* connection, std:
 			std::string name = cmd.substr(CMD_NAME.length());
 			setConnectionName(conn, name);
 		}
+
+		// Hit or Stay
+		if (cmdHasPrefix(cmd, CMD_HIT)) {
+			std::string hitCommand = CMD_HIT + conn->getName();
+			cClient->getConnection()->send(hitCommand);
+		}
+
+		if (cmdHasPrefix(cmd, CMD_STAY)) {
+			std::string stayCommand = CMD_STAY + conn->getName();
+			cClient->getConnection()->send(stayCommand);
+		}
 	}
 
 	// C Client Commands
@@ -182,7 +193,7 @@ GameConnection* GameConnectionManager::getConnectionByName(std::string name) {
  * Checks if the given command starts the the given prefix.
  */
 bool GameConnectionManager::cmdHasPrefix(std::string cmd, std::string prefix) {
-    return cmd.length() > prefix.length() &&
+    return cmd.length() >= prefix.length() &&
            cmd.substr(0, prefix.length()) == prefix;
 }
 
