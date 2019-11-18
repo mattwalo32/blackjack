@@ -17,7 +17,7 @@ Visual Studio will throw errors. To do this, right click on each file in the fol
 This week I wrote most of the server-side code for the websocket server. This can be found in ```\blackjack\src\server```. Here's a high
 level overview of how the communication works:  
 There are two types of clients. A ```Web Client``` and ```C Client```. Each player in the game will be a ```Web Client```, and through
-a web interface they will be able to make game decisions (like hit or stay). There can be multiple Web Clients. There is one ```C Client``. This
+a web interface they will be able to make game decisions (like hit or stay). There can be multiple Web Clients. There is one ```C Client```. This
 client displays a graphic of the current game state, and the players can see their moves updated in real time on the ```C Client```.    
 
 The ```GameConnection``` class serves as a wrapper for the connection objects and the ```GameConnectionManager``` processes all of the commands for the server. the ```ws_test``` file is the entry point to the server and it essentially just calls the game connection manager.    
