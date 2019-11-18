@@ -27,7 +27,7 @@ This week, I implemented to following commands for the server:
 - ```SETNAME:<PlayerName>``` Sets the screen name of the player.
 - ```ADDUSER:<PlayerName>``` Sent to the C Client to indicate that a new player joined.
 - ```UPDATENAME:<PlayerName>``` Sent to the C Client to indicate that a player changed their name.
-- ```SETTYPE:<Type>``` Sets the client type. <Type> Should be 0 (Web) or 1 (C).
-- ```<CardNumber>:<PlayerName>``` Sends the <CardNumber> (0 to 51) to the <PlayerName>. This can only be called by C Client.
+- ```SETTYPE:<Type>``` Sets the client type. ```<Type>``` Should be 0 (Web) or 1 (C).
+- ```<CardNumber>:<PlayerName>``` Sends the ```<CardNumber>``` (0 to 51) to the ```<PlayerName>```. This can only be called by C Client.
 - ```HIT:``` Sent by the web client to indicate they want to recieve a card. This can only be called by Web Client.
 - ```STAY:``` Sent by the web client to indicate they want to stay. This can only be called by Web Client.
