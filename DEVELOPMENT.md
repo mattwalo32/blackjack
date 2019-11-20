@@ -20,7 +20,7 @@ Visual Studio will throw errors. To do this, right click on each file in the fol
 This week I wrote most of the server-side code for the websocket server. This can be found in ```\blackjack\src\server```. Here's a high
 level overview of how the communication works:  
 There are two types of clients. A ```Web Client``` and ```C Client```. Each player in the game will be a ```Web Client```, and through
-a web interface they will be able to make game decisions (like hit or stay). There can be multiple Web Clients. There is one ```C Client``. This
+a web interface they will be able to make game decisions (like hit or stay). There can be multiple Web Clients. There is one ```C Client```. This
 client displays a graphic of the current game state, and the players can see their moves updated in real time on the ```C Client```.    
 
 The ```GameConnection``` class serves as a wrapper for the connection objects and the ```GameConnectionManager``` processes all of the commands for the server. the ```ws_test``` file is the entry point to the server and it essentially just calls the game connection manager.    
@@ -30,7 +30,7 @@ This week, I implemented to following commands for the server:
 - ```SETNAME:<PlayerName>``` Sets the screen name of the player.
 - ```ADDUSER:<PlayerName>``` Sent to the C Client to indicate that a new player joined.
 - ```UPDATENAME:<PlayerName>``` Sent to the C Client to indicate that a player changed their name.
-- ```SETTYPE:<Type>``` Sets the client type. <Type> Should be 0 (Web) or 1 (C).
-- ```<CardNumber>:<PlayerName>``` Sends the <CardNumber> (0 to 51) to the <PlayerName>. This can only be called by C Client.
+- ```SETTYPE:<Type>``` Sets the client type. ```<Type>``` Should be 0 (Web) or 1 (C).
+- ```<CardNumber>:<PlayerName>``` Sends the ```<CardNumber>``` (0 to 51) to the ```<PlayerName>```. This can only be called by C Client.
 - ```HIT:``` Sent by the web client to indicate they want to recieve a card. This can only be called by Web Client.
 - ```STAY:``` Sent by the web client to indicate they want to stay. This can only be called by Web Client.
