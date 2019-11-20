@@ -84,7 +84,7 @@ int main(int /*argc*/, const char* /*argv*/[]) {
     Server server(logger);
 
     auto handler = std::make_shared<MyHandler>(&server);
-    server.addWebSocketHandler("/ws", handler);
+    server.addWebSocketHandler("/socket", handler);
     server.serve("src/ws_test_web", 9090);
     return 0;
 }

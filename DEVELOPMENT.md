@@ -10,8 +10,11 @@ except for a select few that were modified.
 After cloning this repository, seasocks should be cloned to ```\blackjack\src``` into a folder named ```seasocks```. After this,
 all seasocks files that are present in this repository should replace the ones that were just cloned.    
 
+Easy WS Client is used to open the web socket connection from the C client. Since this library is only a .hpp and .cpp file, it
+is committed directly to ```\blackjack\src\easywsclient```.
+
 Note: the files in ```\blackjack\src\server``` are not compiled in visual studio, and they should be excluded from the build otherwise
-Visual Studio will throw errors. To do this, right click on each file in the folder, select properties, and select 'exclude from build'.
+Visual Studio will throw errors. To do this, right click on each file in the folder, select properties, and select 'exclude from build'.    
 
 ### Setting up the server
 This week I wrote most of the server-side code for the websocket server. This can be found in ```\blackjack\src\server```. Here's a high

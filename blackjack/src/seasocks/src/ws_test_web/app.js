@@ -1,7 +1,7 @@
 var ws;
 
 $(function() {
-    ws = new WebSocket('ws://' + document.location.host + '/ws');
+    ws = new WebSocket('ws://' + document.location.host + '/socket');
     ws.onopen = function() {
         console.log('onopen');
         ws.send("SETTYPE:0"); // Type 0 is web client
