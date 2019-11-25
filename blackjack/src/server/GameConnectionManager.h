@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../seasocks/src/main/c/seasocks/WebSocket.h"
+#include "../dataCopy.h"
 #include "GameConnection.h"
 
 #include <string>
@@ -22,6 +23,7 @@ public:
 private:
     std::vector<GameConnection*> connections;
 	GameConnection* cClient;
+	dataCopy* dataCopier;
 	int numConnections = 0;
 	
 	GameConnection* getGameConnection(seasocks::WebSocket* connection);

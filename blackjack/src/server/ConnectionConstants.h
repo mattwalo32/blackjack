@@ -11,6 +11,8 @@ namespace ConnectionConstants {
     const int MAX_NUM_CONNECTION = 6;
     const int NUM_CARDS_IN_DECK = 52;
 
+	const std::string C_CLIENT_WIN_NAME = "Blackjack";
+
 	const std::string CMD_NAME = "SETNAME:";
 	const std::string CMD_TYPE = "SETTYPE:";
 	const std::string CMD_HIT = "HIT:";

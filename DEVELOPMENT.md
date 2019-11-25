@@ -34,3 +34,9 @@ This week, I implemented to following commands for the server:
 - ```<CardNumber>:<PlayerName>``` Sends the ```<CardNumber>``` (0 to 51) to the ```<PlayerName>```. This can only be called by C Client.
 - ```HIT:``` Sent by the web client to indicate they want to recieve a card. This can only be called by Web Client.
 - ```STAY:``` Sent by the web client to indicate they want to stay. This can only be called by Web Client.
+
+# Week Two
+### Connecting C Client to Web Socket
+During the end of last week, I tried about five different libraries for connecting to the web socket from the c++ client,
+and none of them could be integrated well with the project. This week, I tried using boost beast TODO LINK. This is able
+to be installed for vs studio easily with microsoft's vcpkg. 

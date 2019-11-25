@@ -1,8 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="src\seasocks\src\app\c\ws_test.cpp">
-      <Filter>src\server</Filter>
+    <ClCompile Include="src\ofApp.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp">
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\server\GameConnection.cpp">
       <Filter>src\server</Filter>
@@ -10,11 +13,11 @@
     <ClCompile Include="src\server\GameConnectionManager.cpp">
       <Filter>src\server</Filter>
     </ClCompile>
-    <ClCompile Include="src\main.cpp">
-      <Filter>src\c_client</Filter>
+    <ClCompile Include="src\server\CppConnectionWrapper.cpp">
+      <Filter>src\server</Filter>
     </ClCompile>
-    <ClCompile Include="src\ofApp.cpp">
-      <Filter>src\c_client</Filter>
+    <ClCompile Include="src\dataCopy.cpp">
+      <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -22,35 +25,36 @@
       <UniqueIdentifier>{d8376475-7454-4a24-b08a-aac121d3ad6f}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\server">
-      <UniqueIdentifier>{94faa76e-1094-4501-ba78-343667300005}</UniqueIdentifier>
+      <UniqueIdentifier>{b8fd257b-f178-4dd8-970f-a3ce9fcd1c8d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\c_client">
-      <UniqueIdentifier>{99eb3ce3-b7f1-4532-b815-f2ccbe349dfa}</UniqueIdentifier>
+    <Filter Include="src\client">
+      <UniqueIdentifier>{b1d0a1bb-d7a7-4f6a-a61e-70042923f65a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\ofApp.h">
+      <Filter>src</Filter>
+    </ClInclude>
     <ClInclude Include="src\server\GameConnectionManager.h">
       <Filter>src\server</Filter>
     </ClInclude>
     <ClInclude Include="src\server\ConnectionConstants.h">
       <Filter>src\server</Filter>
     </ClInclude>
-    <ClInclude Include="src\ofApp.h">
-      <Filter>src\c_client</Filter>
+    <ClInclude Include="src\server\GameConnection.h">
+      <Filter>src\server</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameConstants.h">
-      <Filter>src\c_client</Filter>
+    <ClInclude Include="src\server\CppConnectionWrapper.h">
+      <Filter>src\server</Filter>
+    </ClInclude>
+    <ClInclude Include="src\dataCopy.h">
+      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\seasocks\src\ws_test_web\app.js">
-      <Filter>src\server</Filter>
-    </None>
-    <None Include="src\seasocks\src\ws_test_web\index.html">
-      <Filter>src\server</Filter>
-    </None>
+    <None Include="addons.make" />
   </ItemGroup>
 </Project>

@@ -1,14 +1,8 @@
 #include "ofApp.h"
-#include "GameConstants.h"
-#include "easywsclient/easywsclient.cpp"
 
 //--------------------------------------------------------------
 void ofApp::setup(){
 
-	//std::string const host = "echo.websocket.org";
-	//using easywsclient::WebSocket;
-	//WebSocket::pointer ws = WebSocket::from_url("ws://localhost:9090/socket");
-	//assert(ws);
 }
 
 //--------------------------------------------------------------

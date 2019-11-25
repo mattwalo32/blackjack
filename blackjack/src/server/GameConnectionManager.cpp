@@ -3,7 +3,10 @@
 
 using namespace ConnectionConstants;
 
-GameConnectionManager::~GameConnectionManager() { connections.clear(); }
+GameConnectionManager::~GameConnectionManager() { 
+	connections.clear();
+	dataCopier = new dataCopy(C_CLIENT_WIN_NAME);
+}
 
 /*
  * Should be called whenever a connection is added to the websocket server.
@@ -59,9 +62,6 @@ void GameConnectionManager::removeConnection(seasocks::WebSocket* socket) {
  */
 void GameConnectionManager::processCommand(seasocks::WebSocket* connection, std::string cmd) {
     GameConnection* conn = getGameConnection(connection);
-
-	///std::string msg = "Recieved data: '" + cmd + "'";
-	//connection->send(msg);
 
     // Set Connection Type
     if (cmdHasPrefix(cmd, CMD_TYPE)) {
