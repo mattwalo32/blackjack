@@ -2,7 +2,6 @@
 #include "ofApp.h"
 #include "GameConstants.h"
 
-
 using namespace GameConstants;
 
 //========================================================================

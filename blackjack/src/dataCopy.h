@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Windows.h>
+//#include <Windows.h>
 #include <Winuser.h>
 #include <string.h>
 #include <string>
