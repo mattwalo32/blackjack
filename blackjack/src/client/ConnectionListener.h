@@ -1,8 +1,8 @@
 #pragma once
 
-#include "GameConstants.h"
+#include "game/GameConstants.h"
+#include "game/GameManager.h"
 #include "ofxLibwebsockets.h"
-#include "GameManager.h"
 
 
 class ConnectionListener {

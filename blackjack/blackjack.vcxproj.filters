@@ -37,6 +37,12 @@
     <ClCompile Include="src\server\GameConnectionManager.cpp">
       <Filter>src\server</Filter>
     </ClCompile>
+    <ClCompile Include="src\ConnectionListener.cpp">
+      <Filter>src\client</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameManager.cpp">
+      <Filter>src\client</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -358,6 +364,15 @@
     </ClInclude>
     <ClInclude Include="src\server\GameConnectionManager.h">
       <Filter>src\server</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ConnectionListener.h">
+      <Filter>src\client</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameConstants.h">
+      <Filter>src\client</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameManager.h">
+      <Filter>src\client</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

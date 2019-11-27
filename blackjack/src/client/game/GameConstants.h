@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include "server/ConnectionConstants.h"
+#include "../../server/ConnectionConstants.h"
 
 namespace GameConstants {
 	// Graphics
