@@ -37,6 +37,11 @@ This week, I implemented to following commands for the server:
 
 # Week Two
 ### Connecting C Client to Web Socket
-During the end of last week, I tried about five different libraries for connecting to the web socket from the c++ client,
-and none of them could be integrated well with the project. This week, I tried using boost beast TODO LINK. This is able
-to be installed for vs studio easily with microsoft's vcpkg. 
+During the end of last week, I tried about four different libraries for connecting to the web socket from the c++ client,
+and none of them could be integrated well with the project. After spending about 15 hours trying to get these libraries to work,
+I decided that I would just send messages through the Windows OS between the client and server since they're running on the same
+machine. I also ran into problems with this and I decided to try using a websocket library for the C Client one more time. I tried using the
+[ofxLibwebsockets](https://github.com/robotconscience/ofxLibwebsockets) library since it's an addon for openframework. I found that 
+if I generated a new project with this addon (as opposed to using the update button in the project generator), I could get this library
+to compile. So, I ended up generating a new project with this addon, and I moved all of the project files into this new folder. This
+ended up working well, so I could now connect the C Client to the websocket server.
