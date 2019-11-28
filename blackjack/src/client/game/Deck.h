@@ -6,11 +6,16 @@
 
 class Deck {
 public:
-	Deck();
+	Deck(int numDecks);
 	~Deck();
-	void shuffleCards();
+
+	void reset();
+	Card drawCard();
 
 private:
+	int numDecks;
+	void fillDeck();
+	void shuffleCards();
 	std::vector<Card*> cards;
 
 };
