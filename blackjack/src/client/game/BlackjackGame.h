@@ -7,6 +7,8 @@
 #include "GameConstants.h"
 #include "utils/TimeUtils.h"
 #include "../ConnectionListener.h"
+#include "../../server/ConnectionConstants.h"
+#include "../../server/utils/ConnectionUtils.h"
 
 class BlackjackGame {
 
@@ -27,6 +29,7 @@ private:
 
 	void placeBets();
 	void dealCards();
-	void waitForResponse();
+	void takeTurns();
+	std::string waitForResponse(std::vector<std::string> expectedPrefixes);
 
 };

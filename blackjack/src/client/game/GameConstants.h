@@ -17,6 +17,11 @@ namespace GameConstants {
 	const std::string CMD_SET_C_CLIENT = ConnectionConstants::CMD_TYPE + "1";
 
 	// Game
+	const int ACE_LOW_VALUE = 1;
+	const int ACE_HIGH_VALUE = 11;
+	const int NUM_ACE_VALUES = 2;
+	const int WINNING_VALUE = 21;
+
 	const int DEFAULT_NUM_DECKS = 6;
 	const int TURN_TIME_MILLIS = 10 * 1000;
 

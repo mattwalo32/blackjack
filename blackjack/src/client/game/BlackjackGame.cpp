@@ -18,7 +18,23 @@ void BlackjackGame::startGame() {
 	while (gameIsRunning) {
 		placeBets();
 		dealCards();
+		//TODO: Check for blackjacks
+		takeTurns();
 	}
+}
+
+void BlackjackGame::placeBets() {
+	for (Player player : players) {
+
+	}
+}
+
+void BlackjackGame::dealCards() {
+
+}
+
+void BlackjackGame::takeTurns() {
+
 }
 
 /*
@@ -26,22 +42,29 @@ void BlackjackGame::startGame() {
  * of time and notify the server how much time is left. If the time runs out
  * or the user takes their turn, this method returns.
  */
-void BlackjackGame::waitForResponse() {
+std::string BlackjackGame::waitForResponse(std::vector<std::string> expectedPrefixes) {
 	int secondsLeft = GameConstants::TURN_TIME_MILLIS;
-	unsigned __int64 currentTime = 0;
 	unsigned __int64 startTime = systemTimeMillis();
+	unsigned __int64 currentTime = startTime;
 
 
 	while (startTime + GameConstants::TURN_TIME_MILLIS > currentTime) {
-		currentTime = std::chrono::duration_cast<std::chrono::milliseconds>
-			(std::chrono::system_clock::now().time_since_epoch()).count();
+		currentTime = systemTimeMillis();
 		
+		connection->sendMessage(ConnectionConstants::CMD_TIMELEFT + 
+			currentPlayer->getName() + ":" + std::to_string(secondsLeft));
+
 		std::vector<std::string> messages = connection->clearBuffer();
-	
+		for (std::string message : messages) {
+			for (std::string prefix : expectedPrefixes) {
+				if (ConnectionUtils::cmdHasPrefix(message, prefix))
+					return message;
+			}
+		}
 
-
-		std::this_thread::sleep_for(std::chrono::seconds(1 - ));
+		std::this_thread::sleep_for(std::chrono::milliseconds(1000 - (systemTimeMillis() - currentTime)));
 		secondsLeft--;
 	} 
 
+	return "";
 }

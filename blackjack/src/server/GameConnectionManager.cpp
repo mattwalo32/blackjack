@@ -1,11 +1,14 @@
 #include "GameConnectionManager.h"
 #include "ConnectionConstants.h"
 
+//TODO: General messages
+//TODO: Betting
+//TODO: Timeleft
+
 using namespace ConnectionConstants;
 
 GameConnectionManager::~GameConnectionManager() { 
 	connections.clear();
-	dataCopier = new dataCopy(C_CLIENT_WIN_NAME);
 }
 
 /*
@@ -64,7 +67,7 @@ void GameConnectionManager::processCommand(seasocks::WebSocket* connection, std:
     GameConnection* conn = getGameConnection(connection);
 
     // Set Connection Type
-    if (cmdHasPrefix(cmd, CMD_TYPE)) {
+    if (ConnectionUtils::cmdHasPrefix(cmd, CMD_TYPE)) {
 		std::string type = cmd.substr(CMD_TYPE.length());
 		setConnectionType(conn, type);
 		return;
@@ -79,18 +82,18 @@ void GameConnectionManager::processCommand(seasocks::WebSocket* connection, std:
 	// Web Client Commands
 	if (conn->getType() == CONNECTION_TYPE::WEB_CLIENT) {
 		// Set Name
-		if (cmdHasPrefix(cmd, CMD_NAME)) {
+		if (ConnectionUtils::cmdHasPrefix(cmd, CMD_NAME)) {
 			std::string name = cmd.substr(CMD_NAME.length());
 			setConnectionName(conn, name);
 		}
 
 		// Hit or Stay
-		if (cmdHasPrefix(cmd, CMD_HIT)) {
+		if (ConnectionUtils::cmdHasPrefix(cmd, CMD_HIT)) {
 			std::string hitCommand = CMD_HIT + conn->getName();
 			cClient->getConnection()->send(hitCommand);
 		}
 
-		if (cmdHasPrefix(cmd, CMD_STAY)) {
+		if (ConnectionUtils::cmdHasPrefix(cmd, CMD_STAY)) {
 			std::string stayCommand = CMD_STAY + conn->getName();
 			cClient->getConnection()->send(stayCommand);
 		}
@@ -187,14 +190,6 @@ GameConnection* GameConnectionManager::getConnectionByName(std::string name) {
     }
 
 	return nullptr;
-}
-
-/*
- * Checks if the given command starts the the given prefix.
- */
-bool GameConnectionManager::cmdHasPrefix(std::string cmd, std::string prefix) {
-    return cmd.length() >= prefix.length() &&
-           cmd.substr(0, prefix.length()) == prefix;
 }
 
 /*
