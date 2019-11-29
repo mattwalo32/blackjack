@@ -1,12 +1,13 @@
 #pragma once
 
 #include "Card.h"
+#include "GameConstants.h"
 #include <vector>
 #include <cstdlib>
 
 class Deck {
 public:
-	Deck(int numDecks);
+	Deck(int numDecks = GameConstants::DEFAULT_NUM_DECKS);
 	~Deck();
 
 	void reset();

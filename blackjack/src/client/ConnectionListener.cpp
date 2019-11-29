@@ -1,9 +1,5 @@
 #include "ConnectionListener.h"
 
-ConnectionListener::ConnectionListener(GameManager manager) {
-	gameManager = manager;
-}
-
 // Open connection and set type to C client
 void ConnectionListener::initConnection(){
 	ofxLibwebsockets::ClientOptions options = ofxLibwebsockets::defaultClientOptions();
@@ -16,6 +12,16 @@ void ConnectionListener::initConnection(){
 	client.addListener(this);
 
 	client.send(GameConstants::CMD_SET_C_CLIENT);
+}
+
+void ConnectionListener::sendMessage(std::string message) {
+	client.send(message);
+}
+
+std::vector<std::string> ConnectionListener::clearBuffer() {
+	std::vector<std::string> messages = messageBuffer;
+	messageBuffer.clear();
+	return messages;
 }
 
 void ConnectionListener::onConnect(ofxLibwebsockets::Event& args) {
@@ -35,9 +41,9 @@ void ConnectionListener::onIdle(ofxLibwebsockets::Event& args) {
 }
 
 void ConnectionListener::onMessage(ofxLibwebsockets::Event& args) {
-	cout << "got message " << args.message << endl;
+	messageBuffer.push_back(args.message);
 }
 
 void ConnectionListener::onBroadcast(ofxLibwebsockets::Event& args) {
-	cout << "got broadcast " << args.message << endl;
+	messageBuffer.push_back(args.message);
 }

@@ -25,6 +25,7 @@ public:
 
 	Card(Rank rank, Suit suit);
 
+	int getValue();
 	Rank getRank();
 	Suit getSuit();
 

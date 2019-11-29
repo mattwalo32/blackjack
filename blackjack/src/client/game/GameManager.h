@@ -1,10 +1,10 @@
 #pragma once
 
-#include "GameConstants.h"
-#include "ofxLibwebsockets.h"
-
+#include "Player.h"
 
 class GameManager {
+public:
 
-
+private:
+	std::vector<Player> players;
 };

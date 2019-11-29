@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+#include <vector>
 #include "game/GameConstants.h"
 #include "game/GameManager.h"
 #include "ofxLibwebsockets.h"
@@ -8,7 +10,9 @@
 class ConnectionListener {
 
 	public:
-		ConnectionListener(GameManager manager);
+		ConnectionListener();
+		void sendMessage(std::string message);
+		std::vector<std::string> clearBuffer();
 
 		// Implemented methods from ofxLibwebsockets library
 		void initConnection();
@@ -21,6 +25,7 @@ class ConnectionListener {
 
 
 	private:
+		std::vector<std::string> messageBuffer;
 		ofxLibwebsockets::Client client;
-		GameManager gameManager;
+
 };
