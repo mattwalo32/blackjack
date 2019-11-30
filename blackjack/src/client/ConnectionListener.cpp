@@ -18,8 +18,8 @@ void ConnectionListener::sendMessage(std::string message) {
 	client.send(message);
 }
 
-std::vector<std::string> ConnectionListener::clearBuffer() {
-	std::vector<std::string> messages = messageBuffer;
+std::vector<WsMessage> ConnectionListener::clearBuffer() {
+	std::vector<WsMessage> messages = messageBuffer;
 	messageBuffer.clear();
 	return messages;
 }
@@ -41,9 +41,11 @@ void ConnectionListener::onIdle(ofxLibwebsockets::Event& args) {
 }
 
 void ConnectionListener::onMessage(ofxLibwebsockets::Event& args) {
-	messageBuffer.push_back(args.message);
+	WsMessage msg(args.message);
+	messageBuffer.push_back(msg);
 }
 
 void ConnectionListener::onBroadcast(ofxLibwebsockets::Event& args) {
-	messageBuffer.push_back(args.message);
+	WsMessage msg(args.message);
+	messageBuffer.push_back(msg);
 }

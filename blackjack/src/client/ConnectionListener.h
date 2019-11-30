@@ -4,6 +4,7 @@
 #include <vector>
 #include "game/GameConstants.h"
 #include "game/GameManager.h"
+#include "comm/WsMessage.h"
 #include "ofxLibwebsockets.h"
 
 
@@ -12,7 +13,7 @@ class ConnectionListener {
 	public:
 		ConnectionListener();
 		void sendMessage(std::string message);
-		std::vector<std::string> clearBuffer();
+		std::vector<WsMessage> clearBuffer();
 
 		// Implemented methods from ofxLibwebsockets library
 		void initConnection();
@@ -25,7 +26,7 @@ class ConnectionListener {
 
 
 	private:
-		std::vector<std::string> messageBuffer;
+		std::vector<WsMessage> messageBuffer;
 		ofxLibwebsockets::Client client;
 
 };
