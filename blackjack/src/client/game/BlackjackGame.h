@@ -10,8 +10,9 @@
 #include "../../server/ConnectionConstants.h"
 #include "../../server/utils/ConnectionUtils.h"
 
-class BlackjackGame {
+typedef bool(*validationFunction)(std::string, Player* currentPlayer);
 
+class BlackjackGame {
 public:
 	BlackjackGame(std::vector<Player> players, ConnectionListener* listener);
 	void startGame();
@@ -30,6 +31,6 @@ private:
 	void placeBets();
 	void dealCards();
 	void takeTurns();
-	std::string waitForResponse(std::vector<std::string> expectedPrefixes);
+	std::string getPlayerResponse(std::vector<std::string> expectedPrefixes, validationFunction validate);
 
 };

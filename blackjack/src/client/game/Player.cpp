@@ -9,9 +9,15 @@ Player::Player(int startingBalance) {
 	naturalBlackjack = false;
 }
 
+/*
+ * Adds the card to the players hand and then calculates the score of their
+ * hand, if they busted, and if they have a natural blackjack (10 card and ace).
+ * Since aces can be either 1s or 11s, the best valid score of the player is
+ * taken. For example with the hand "3, 4, ACE, ACE" The value would be 19 because
+ * the first ACE would be assigned 11 and the second 1, totaling 3 + 4 + 11 + 1 = 19.
+ */
 void Player::dealCard(Card card) {
 	currentHand.push_back(card);
-	
 	int numAces = 0;
 	int scoreBeforeAces = 0;
 	int bestScore = 0;

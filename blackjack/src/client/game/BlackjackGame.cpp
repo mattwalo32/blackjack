@@ -25,7 +25,23 @@ void BlackjackGame::startGame() {
 
 void BlackjackGame::placeBets() {
 	for (Player player : players) {
+		currentPlayer = &player;
 
+		std::string response = getPlayerResponse({ ConnectionConstants::CMD_BET },
+			[](std::string message, Player* currentPlayer) {
+			std::string amountStr = message.substr(ConnectionConstants::CMD_BET.length);
+			int bet;
+
+			try {
+				bet = std::stoi(amountStr);
+			} catch (std::exception e) {
+				return false;
+			}
+
+			return bet <= currentPlayer->getBalance();
+		});
+
+		int bet = std::stoi(response.substr(ConnectionConstants::CMD_BET.length));
 	}
 }
 
@@ -42,7 +58,7 @@ void BlackjackGame::takeTurns() {
  * of time and notify the server how much time is left. If the time runs out
  * or the user takes their turn, this method returns.
  */
-std::string BlackjackGame::waitForResponse(std::vector<std::string> expectedPrefixes) {
+std::string BlackjackGame::getPlayerResponse(std::vector<std::string> expectedPrefixes, validationFunction isValid) {
 	int secondsLeft = GameConstants::TURN_TIME_MILLIS;
 	unsigned __int64 startTime = systemTimeMillis();
 	unsigned __int64 currentTime = startTime;
@@ -58,7 +74,9 @@ std::string BlackjackGame::waitForResponse(std::vector<std::string> expectedPref
 		for (std::string message : messages) {
 			for (std::string prefix : expectedPrefixes) {
 				if (ConnectionUtils::cmdHasPrefix(message, prefix))
-					return message;
+					if(isValid(message, currentPlayer))
+					// TODO: Check response is valid
+						return message;
 			}
 		}
 
