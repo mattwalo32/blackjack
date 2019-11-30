@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 class Card {
 public:
 	enum Suit { DIAMONDS = 0, HEARTS, SPADES, CLUBS };
@@ -26,6 +28,7 @@ public:
 	Card(Rank rank, Suit suit);
 
 	int getValue();
+	std::string getCode();
 	Rank getRank();
 	Suit getSuit();
 

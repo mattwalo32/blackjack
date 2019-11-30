@@ -16,20 +16,24 @@ void BlackjackGame::startGame() {
 	gameIsRunning = true;
 	//TODO: Set current player
 	while (gameIsRunning) {
-		placeBets();
+		//placeBets();
 		dealCards();
 		//TODO: Check for blackjacks
 		takeTurns();
 	}
 }
 
-void BlackjackGame::placeBets() {
+/*void BlackjackGame::placeBets() {
 	for (Player* player : players) {
 		currentPlayer = player;
 
-		std::string response = getPlayerResponse({ ConnectionConstants::CMD_BET },
-			[](std::string message, Player* currentPlayer) {
-			std::string amountStr = message.substr(ConnectionConstants::CMD_BET.length);
+		WsMessage response = getPlayerResponse({ ConnectionConstants::CMD_BET },
+			[](WsMessage message, Player* currentPlayer) {
+			
+			if (message.getSenderName() != currentPlayer->getName())
+				return false;
+
+			std::string amountStr = message.getMessageContents();
 			int bet;
 
 			try {
@@ -41,12 +45,19 @@ void BlackjackGame::placeBets() {
 			return bet <= currentPlayer->getBalance();
 		});
 
-		int bet = std::stoi(response.substr(ConnectionConstants::CMD_BET.length));
+		int bet = std::stoi(response.getMessageContents());
+
+		//TODO: Finish implementing
 	}
-}
+}*/
 
 void BlackjackGame::dealCards() {
 
+	for (int cardNum = 0; cardNum < GameConstants::NUM_STARTING_CARDS; cardNum++) {
+		for (Player* player : players) {
+			player->dealCard(deck.drawCard());
+		}
+	}
 }
 
 void BlackjackGame::takeTurns() {
@@ -58,7 +69,7 @@ void BlackjackGame::takeTurns() {
  * of time and notify the server how much time is left. If the time runs out
  * or the user takes their turn, this method returns.
  */
-std::string BlackjackGame::getPlayerResponse(std::vector<std::string> expectedPrefixes, validationFunction isValid) {
+/*WsMessage BlackjackGame::getPlayerResponse(std::vector<std::string> expectedPrefixes, validationFunction isValid) {
 	int secondsLeft = GameConstants::TURN_TIME_MILLIS;
 	unsigned __int64 startTime = systemTimeMillis();
 	unsigned __int64 currentTime = startTime;
@@ -70,10 +81,10 @@ std::string BlackjackGame::getPlayerResponse(std::vector<std::string> expectedPr
 		connection->sendMessage(ConnectionConstants::CMD_TIMELEFT + 
 			currentPlayer->getName() + ":" + std::to_string(secondsLeft));
 
-		std::vector<std::string> messages = connection->clearBuffer();
-		for (std::string message : messages) {
+		std::vector<WsMessage> messages = connection->clearBuffer();
+		for (WsMessage message : messages) {
 			for (std::string prefix : expectedPrefixes) {
-				if (ConnectionUtils::cmdHasPrefix(message, prefix))
+				if (ConnectionUtils::cmdHasPrefix(message.getMessageContents(), prefix))
 					if(isValid(message, currentPlayer))
 					// TODO: Check response is valid
 						return message;
@@ -85,4 +96,4 @@ std::string BlackjackGame::getPlayerResponse(std::vector<std::string> expectedPr
 	} 
 
 	return "";
-}
+}*/

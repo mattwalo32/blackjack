@@ -21,7 +21,9 @@ namespace GameConstants {
 	const int ACE_HIGH_VALUE = 11;
 	const int NUM_ACE_VALUES = 2;
 	const int WINNING_VALUE = 21;
+	const int DEALER_HIT_AMOUNT = 17;
 
+	const int NUM_STARTING_CARDS = 2;
 	const int DEFAULT_NUM_DECKS = 6;
 	const int TURN_TIME_MILLIS = 10 * 1000;
 
