@@ -2,7 +2,7 @@
 
 using namespace TimeUtils;
 
-BlackjackGame::BlackjackGame(std::vector<Player> players, ConnectionListener* listener) {
+BlackjackGame::BlackjackGame(std::vector<Player*> players, ConnectionListener* listener) {
 	this->players = players;
 	connection = listener;
 	gameIsRunning = false;
@@ -24,8 +24,8 @@ void BlackjackGame::startGame() {
 }
 
 void BlackjackGame::placeBets() {
-	for (Player player : players) {
-		currentPlayer = &player;
+	for (Player* player : players) {
+		currentPlayer = player;
 
 		std::string response = getPlayerResponse({ ConnectionConstants::CMD_BET },
 			[](std::string message, Player* currentPlayer) {

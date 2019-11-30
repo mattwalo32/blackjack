@@ -135,7 +135,7 @@ void GameConnectionManager::setConnectionName(GameConnection* connection, std::s
 	std::string cClientMsg;
 
 	if (isUpdatingName)
-		cClientMsg = CMD_UPDATE_NAME + connection->getName() + ":" + name;
+		cClientMsg = CMD_UPDATE_NAME + name + ":" + connection->getName();
 	else
 		cClientMsg = CMD_ADD_USER + name;
 

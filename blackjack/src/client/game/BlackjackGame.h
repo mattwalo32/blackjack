@@ -14,7 +14,7 @@ typedef bool(*validationFunction)(std::string, Player* currentPlayer);
 
 class BlackjackGame {
 public:
-	BlackjackGame(std::vector<Player> players, ConnectionListener* listener);
+	BlackjackGame(std::vector<Player*> players, ConnectionListener* listener);
 	void startGame();
 	void resetGame();
 
@@ -23,7 +23,7 @@ public:
 
 private:
 	Deck deck;
-	std::vector<Player> players;
+	std::vector<Player*> players;
 	Player* currentPlayer;
 	ConnectionListener* connection;
 	bool gameIsRunning;
