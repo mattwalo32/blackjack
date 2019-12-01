@@ -22,6 +22,7 @@ namespace ConnectionConstants {
 	const std::string CMD_UPDATE_NAME = "UPDATENAME:";
 	const std::string CMD_BET = "BET:";
 	const std::string CMD_TIMELEFT = "TIMELEFT:";
+	const std::string CMD_TURNEND = "TURNEND:";
 	const std::string CMD_MSG_PLAYER = "MSG:";
 
 	const std::string MSG_GAME_FULL = "Could not join, game is full.";

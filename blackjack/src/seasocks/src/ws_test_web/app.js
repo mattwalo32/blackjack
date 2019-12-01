@@ -57,11 +57,9 @@ $(function() {
             $("body").append("<p> You have " + cardCodeToString(cardCode) + "</p>");
         } else if (message.data.substring(0, 9) == "TIMELEFT:") {
             let time = message.data.substring(9, message.data.length);
-            $("#timedialog").text("It's your turn! You have " + time + " seconds left.")
-
-            if (time <= 0)
-                $("#timedialog").text("It's not your turn yet.");
-
+            $("#timedialog").text("It's your turn! You have " + time + " seconds left.")                
+        } else if (message.data.substring(0, 8) == "TURNEND:") {
+            $("#timedialog").text("It's not your turn yet.");
         }
 
        // $("body").append("<p>" + message.data + "</p>");

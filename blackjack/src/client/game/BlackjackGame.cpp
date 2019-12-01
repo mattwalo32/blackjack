@@ -78,6 +78,7 @@ void BlackjackGame::takeTurns() {
 			cout << "Taking " << player->getName() << "'s turn" << endl;
 		}
 		cout << player->getName() << "'s turn is over" << endl;
+		connection->sendMessage(ConnectionConstants::CMD_TURNEND + player->getName());
 	}
 }
 

@@ -114,6 +114,10 @@ void GameConnectionManager::processCommand(seasocks::WebSocket* connection, std:
 		if (ConnectionUtils::cmdHasPrefix(cmd, CMD_TIMELEFT)) {
 			notifyUserTime(cmd);
 		}
+
+		if (ConnectionUtils::cmdHasPrefix(cmd, CMD_TURNEND)) {
+			notifyUserTurnOver(cmd);
+		}
     }
 }
 
@@ -172,6 +176,11 @@ void GameConnectionManager::sendCard(GameConnection* connection, std::string pla
 		gameConnection->getConnection()->send(dealMsg);
 }
 
+/*
+ * Given the time remaining command, it will extract the recipient name and time
+ * remaining from the message and notify the player how much time remains. The command
+ * is expected to be the following format: TIMELEFT:<TimeSeconds>:<PlayerName>
+ */
 void GameConnectionManager::notifyUserTime(std::string cmd) {
 	int firstDelimIndex = cmd.find(":");
 	int lastDelimIndex = cmd.find_last_of(":");
@@ -180,12 +189,25 @@ void GameConnectionManager::notifyUserTime(std::string cmd) {
 	std::string playerName = cmd.substr(lastDelimIndex + 1);
 	std::string timeLeftCmd = CMD_TIMELEFT + timeRemaining;
 
-	//std::cout << timeRemaining << " " << playerName << " " << timeLeftCmd;
-
 	GameConnection* connection = getConnectionByName(playerName);
 	
 	if (connection)
 		connection->getConnection()->send(timeLeftCmd);
+}
+
+/*
+ * Given the turn over command, it will extract the recipient name from
+ * the message and notify the player that their turn is over. The command
+ * is expected to be the following format: ENDTURN:<PlayerName>
+ */
+void GameConnectionManager::notifyUserTurnOver(std::string cmd) {
+	int delimIndex = cmd.find(":");
+
+	std::string playerName = cmd.substr(delimIndex + 1);
+	GameConnection* connection = getConnectionByName(playerName);
+
+	if (connection)
+		connection->getConnection()->send(CMD_TURNEND);
 }
 
 /*

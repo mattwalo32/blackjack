@@ -17,6 +17,7 @@ public:
 	void setConnectionName(GameConnection* connection, std::string newName);
 	void sendCard(GameConnection* connection, std::string playerName, std::string cardCode);
 	void notifyUserTime(std::string cmd);
+	void notifyUserTurnOver(std::string cmd);
 	
 	void reset();
 
