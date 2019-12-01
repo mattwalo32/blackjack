@@ -60,7 +60,7 @@ void BlackjackGame::dealCards() {
 		for (Player* player : players) {
 			Card card = deck.drawCard();
 			player->dealCard(card);
-			cout << "Dealt " << card.getRank() << " of " << card.getSuit() << " to " << player->getName();
+			cout << "Dealt " << card.getRank() << " of " << card.getSuit() << " to " << player->getName() << endl;
 		}
 	}
 }

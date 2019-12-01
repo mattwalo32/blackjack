@@ -47,14 +47,14 @@ void ConnectionListener::onClose(ofxLibwebsockets::Event& args) {
 }
 
 void ConnectionListener::onIdle(ofxLibwebsockets::Event& args) {
-	cout << "on idle" << endl;
+
 }
 
 void ConnectionListener::onMessage(ofxLibwebsockets::Event& args) {
 	WsMessage msg(args.message);
 	messageBuffer.push_back(msg);
 
-	cout << msg.getMessageContents() << " From " << msg.getSenderName() << endl;
+	// cout << msg.getMessageContents() << " From " << msg.getSenderName() << endl;
 
 	if (cmdHasPrefix(msg.getPrefix(), ConnectionConstants::CMD_UPDATE_NAME)) {
 		nameUpdateCallback(msg);

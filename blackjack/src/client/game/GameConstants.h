@@ -25,7 +25,8 @@ namespace GameConstants {
 
 	const int NUM_STARTING_CARDS = 2;
 	const int DEFAULT_NUM_DECKS = 6;
-	const int TURN_TIME_MILLIS = 10 * 1000;
+	const int TURN_TIME_SECONDS = 20;
+	const int TURN_TIME_MILLIS = TURN_TIME_SECONDS * 1000;
 
 	const int STARTING_CASH = 500;
 	const int MIN_BET = 20;
