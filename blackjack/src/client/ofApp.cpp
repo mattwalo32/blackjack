@@ -1,5 +1,9 @@
 #include "ofApp.h"
 
+ofApp::~ofApp() {
+	delete gameThread;
+}
+
 //--------------------------------------------------------------
 void ofApp::setup(){
 	manager.init();
@@ -17,7 +21,7 @@ void ofApp::draw(){
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-	manager.startGame();
+	gameThread = new std::thread(&GameManager::startGame, &manager);
 }
 
 //--------------------------------------------------------------
@@ -68,4 +72,8 @@ void ofApp::gotMessage(ofMessage msg){
 //--------------------------------------------------------------
 void ofApp::dragEvent(ofDragInfo dragInfo){ 
 
+}
+
+GameManager* ofApp::getGameManager() {
+	return &manager;
 }

@@ -3,7 +3,7 @@
 #include "ofMain.h"
 #include "game/GameManager.h"
 #include "game/GameConstants.h"
-
+#include <thread>
 
 class ofApp : public ofBaseApp {
 
@@ -11,6 +11,8 @@ class ofApp : public ofBaseApp {
 		void setup();
 		void update();
 		void draw();
+		GameManager* getGameManager();
+		~ofApp();
 
 		void keyPressed(int key);
 		void keyReleased(int key);
@@ -26,4 +28,5 @@ class ofApp : public ofBaseApp {
 
 	private:
 		GameManager manager;
+		std::thread* gameThread;
 };
