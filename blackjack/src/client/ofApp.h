@@ -1,9 +1,9 @@
 #pragma once
 
 #include "ofMain.h"
-#include "game/GameConstants.h"
-
 #include "ofxLibwebsockets.h"
+#include "game/GameManager.h"
+#include "game/GameConstants.h"
 
 
 class ofApp : public ofBaseApp {
@@ -26,6 +26,7 @@ class ofApp : public ofBaseApp {
 		void gotMessage(ofMessage msg);
 
 		ofxLibwebsockets::Client client;
+		GameManager manager;
 
 		// websocket methods
 		void onConnect(ofxLibwebsockets::Event& args);

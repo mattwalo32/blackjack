@@ -61,6 +61,7 @@ set(SEASOCKS_SOURCE_FILES
         util/RootPageHandler.cpp
 	../../../../server/GameConnectionManager.cpp
 	../../../../server/GameConnection.cpp
+	../../../../server/utils/ConnectionUtils.cpp
         )
 
 if (DEFLATE_SUPPORT)

@@ -22,26 +22,50 @@
     <ClCompile Include="..\..\..\..\..\Downloads\of_v0.10.1_vs2017_release\of_v0.10.1_vs2017_release\addons\ofxLibwebsockets\libs\ofxLibwebsockets\src\Util.cpp">
       <Filter>addons\ofxLibwebsockets\libs\ofxLibwebsockets\src</Filter>
     </ClCompile>
-    <ClCompile Include="src\main.cpp">
-      <Filter>src\client</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ofApp.cpp">
-      <Filter>src\client</Filter>
-    </ClCompile>
-    <ClCompile Include="src\server\CppConnectionWrapper.cpp">
-      <Filter>src\server</Filter>
-    </ClCompile>
     <ClCompile Include="src\server\GameConnection.cpp">
       <Filter>src\server</Filter>
     </ClCompile>
     <ClCompile Include="src\server\GameConnectionManager.cpp">
       <Filter>src\server</Filter>
     </ClCompile>
-    <ClCompile Include="src\ConnectionListener.cpp">
+    <ClCompile Include="src\client\ConnectionListener.cpp">
       <Filter>src\client</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameManager.cpp">
+    <ClCompile Include="src\client\main.cpp">
       <Filter>src\client</Filter>
+    </ClCompile>
+    <ClCompile Include="src\client\ofApp.cpp">
+      <Filter>src\client</Filter>
+    </ClCompile>
+    <ClCompile Include="src\client\game\GameManager.cpp">
+      <Filter>src\client\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\client\game\BlackjackGame.cpp">
+      <Filter>src\client\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\client\game\Deck.cpp">
+      <Filter>src\client\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\client\game\Player.cpp">
+      <Filter>src\client\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\client\game\Card.cpp">
+      <Filter>src\client\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\client\game\utils\TimeUtils.cpp">
+      <Filter>src\client\game\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\server\utils\ConnectionUtils.cpp">
+      <Filter>src\server\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\client\comm\WsMessage.cpp">
+      <Filter>src\client\comm</Filter>
+    </ClCompile>
+    <ClCompile Include="src\client\game\Dealer.cpp">
+      <Filter>src\client\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\seasocks\src\app\c\ws_test.cpp">
+      <Filter>src\server</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -92,6 +116,18 @@
     </Filter>
     <Filter Include="src\client">
       <UniqueIdentifier>{81217d46-ee6d-4eec-ab15-e55323bffaf1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\client\game">
+      <UniqueIdentifier>{d1800493-d1a9-408e-bc57-49daf32ec775}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\client\game\utils">
+      <UniqueIdentifier>{4f19c94d-0091-443a-9ae2-bf0c49b9de1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\server\utils">
+      <UniqueIdentifier>{1182ab68-46c3-45bd-a358-02ab0ce5d03a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\client\comm">
+      <UniqueIdentifier>{1c91950d-daef-4a90-96b5-24eaa437ed03}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -350,13 +386,7 @@
     <ClInclude Include="..\..\..\..\..\Downloads\of_v0.10.1_vs2017_release\of_v0.10.1_vs2017_release\addons\ofxLibwebsockets\libs\openssl\include\openssl\x509_vfy.h">
       <Filter>addons\ofxLibwebsockets\libs\openssl\include\openssl</Filter>
     </ClInclude>
-    <ClInclude Include="src\ofApp.h">
-      <Filter>src\client</Filter>
-    </ClInclude>
     <ClInclude Include="src\server\ConnectionConstants.h">
-      <Filter>src\server</Filter>
-    </ClInclude>
-    <ClInclude Include="src\server\CppConnectionWrapper.h">
       <Filter>src\server</Filter>
     </ClInclude>
     <ClInclude Include="src\server\GameConnection.h">
@@ -365,14 +395,41 @@
     <ClInclude Include="src\server\GameConnectionManager.h">
       <Filter>src\server</Filter>
     </ClInclude>
-    <ClInclude Include="src\ConnectionListener.h">
+    <ClInclude Include="src\client\ConnectionListener.h">
       <Filter>src\client</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameConstants.h">
+    <ClInclude Include="src\client\ofApp.h">
       <Filter>src\client</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameManager.h">
-      <Filter>src\client</Filter>
+    <ClInclude Include="src\client\game\GameConstants.h">
+      <Filter>src\client\game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\client\game\GameManager.h">
+      <Filter>src\client\game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\client\game\BlackjackGame.h">
+      <Filter>src\client\game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\client\game\Deck.h">
+      <Filter>src\client\game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\client\game\Player.h">
+      <Filter>src\client\game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\client\game\Card.h">
+      <Filter>src\client\game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\client\game\utils\TimeUtils.h">
+      <Filter>src\client\game\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\server\utils\ConnectionUtils.h">
+      <Filter>src\server\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\client\comm\WsMessage.h">
+      <Filter>src\client\comm</Filter>
+    </ClInclude>
+    <ClInclude Include="src\client\game\Dealer.h">
+      <Filter>src\client\game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

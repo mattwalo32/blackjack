@@ -1,5 +1,6 @@
 #include "GameConnectionManager.h"
 #include "ConnectionConstants.h"
+#include "utils/ConnectionUtils.h"
 
 //TODO: General messages
 //TODO: Betting

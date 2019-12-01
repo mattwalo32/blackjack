@@ -1,5 +1,7 @@
 #include "ConnectionListener.h"
 
+using namespace ConnectionUtils;
+
 // Open connection and set type to C client
 void ConnectionListener::initConnection(){
 	ofxLibwebsockets::ClientOptions options = ofxLibwebsockets::defaultClientOptions();
@@ -12,6 +14,14 @@ void ConnectionListener::initConnection(){
 	client.addListener(this);
 
 	client.send(GameConstants::CMD_SET_C_CLIENT);
+}
+
+void ConnectionListener::setNameUpdateCallback(msgCallback callback) {
+	nameUpdateCallback = callback;
+}
+
+void ConnectionListener::setAddUserCallback(msgCallback callback) {
+	addUserCallback = callback;
 }
 
 void ConnectionListener::sendMessage(std::string message) {
@@ -43,6 +53,15 @@ void ConnectionListener::onIdle(ofxLibwebsockets::Event& args) {
 void ConnectionListener::onMessage(ofxLibwebsockets::Event& args) {
 	WsMessage msg(args.message);
 	messageBuffer.push_back(msg);
+
+	cout << msg.getMessageContents() << " From " << msg.getSenderName() << endl;
+
+	if (cmdHasPrefix(msg.getPrefix(), ConnectionConstants::CMD_UPDATE_NAME)) {
+		nameUpdateCallback(msg);
+	} else if (cmdHasPrefix(msg.getPrefix(), ConnectionConstants::CMD_ADD_USER)) {
+		addUserCallback(msg);
+	}
+
 }
 
 void ConnectionListener::onBroadcast(ofxLibwebsockets::Event& args) {

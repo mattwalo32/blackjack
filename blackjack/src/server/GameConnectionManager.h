@@ -2,7 +2,6 @@
 
 #include "../seasocks/src/main/c/seasocks/WebSocket.h"
 #include "GameConnection.h"
-#include "utils/ConnectionUtils.h"
 
 #include <string>
 

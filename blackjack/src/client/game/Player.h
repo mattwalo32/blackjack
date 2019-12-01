@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+#include <functional>
 
 #include "Card.h"
 #include "GameConstants.h"
@@ -9,11 +10,12 @@
 #include "../ConnectionListener.h"
 #include "../../server/ConnectionConstants.h"
 #include "../../server/utils/ConnectionUtils.h"
+#include "../comm/WsMessage.h"
 
-typedef std::function<bool(WsMessage)> validationFunc;
 
 class Player {
 public:
+	typedef std::function<bool(WsMessage)> validationFunc;
 	Player(ConnectionListener* listener, std::string name, int startingBalance);
 	
 	void dealCard(Card card);
@@ -26,6 +28,7 @@ public:
 	void clearHand();
 	
 	void setCurrentBet(int betAmount);
+	void setName(std::string name);
 	int getCurrentBet();
 	int getBalance();
 	bool isBust();

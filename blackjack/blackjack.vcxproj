@@ -180,10 +180,6 @@
     <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\ConnectionListener.cpp" />
-    <ClCompile Include="src\GameManager.cpp" />
-    <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\ofApp.cpp" />
     <ClCompile Include="..\..\..\..\..\Downloads\of_v0.10.1_vs2017_release\of_v0.10.1_vs2017_release\addons\ofxLibwebsockets\libs\ofxLibwebsockets\src\Client.cpp" />
     <ClCompile Include="..\..\..\..\..\Downloads\of_v0.10.1_vs2017_release\of_v0.10.1_vs2017_release\addons\ofxLibwebsockets\libs\ofxLibwebsockets\src\Connection.cpp" />
     <ClCompile Include="..\..\..\..\..\Downloads\of_v0.10.1_vs2017_release\of_v0.10.1_vs2017_release\addons\ofxLibwebsockets\libs\ofxLibwebsockets\src\Events.cpp" />
@@ -191,7 +187,18 @@
     <ClCompile Include="..\..\..\..\..\Downloads\of_v0.10.1_vs2017_release\of_v0.10.1_vs2017_release\addons\ofxLibwebsockets\libs\ofxLibwebsockets\src\Reactor.cpp" />
     <ClCompile Include="..\..\..\..\..\Downloads\of_v0.10.1_vs2017_release\of_v0.10.1_vs2017_release\addons\ofxLibwebsockets\libs\ofxLibwebsockets\src\Server.cpp" />
     <ClCompile Include="..\..\..\..\..\Downloads\of_v0.10.1_vs2017_release\of_v0.10.1_vs2017_release\addons\ofxLibwebsockets\libs\ofxLibwebsockets\src\Util.cpp" />
-    <ClCompile Include="src\server\CppConnectionWrapper.cpp">
+    <ClCompile Include="src\client\comm\WsMessage.cpp" />
+    <ClCompile Include="src\client\ConnectionListener.cpp" />
+    <ClCompile Include="src\client\game\BlackjackGame.cpp" />
+    <ClCompile Include="src\client\game\Card.cpp" />
+    <ClCompile Include="src\client\game\Dealer.cpp" />
+    <ClCompile Include="src\client\game\Deck.cpp" />
+    <ClCompile Include="src\client\game\GameManager.cpp" />
+    <ClCompile Include="src\client\game\Player.cpp" />
+    <ClCompile Include="src\client\game\utils\TimeUtils.cpp" />
+    <ClCompile Include="src\client\main.cpp" />
+    <ClCompile Include="src\client\ofApp.cpp" />
+    <ClCompile Include="src\seasocks\src\app\c\ws_test.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="src\server\GameConnection.cpp">
@@ -200,12 +207,9 @@
     <ClCompile Include="src\server\GameConnectionManager.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="src\server\utils\ConnectionUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\ConnectionListener.h" />
-    <ClInclude Include="src\GameConstants.h" />
-    <ClInclude Include="src\GameManager.h" />
-    <ClInclude Include="src\ofApp.h" />
     <ClInclude Include="..\..\..\..\..\Downloads\of_v0.10.1_vs2017_release\of_v0.10.1_vs2017_release\addons\ofxLibwebsockets\src\ofxLibwebsockets.h" />
     <ClInclude Include="..\..\..\..\..\Downloads\of_v0.10.1_vs2017_release\of_v0.10.1_vs2017_release\addons\ofxLibwebsockets\libs\libwebsockets\include\libwebsockets.h" />
     <ClInclude Include="..\..\..\..\..\Downloads\of_v0.10.1_vs2017_release\of_v0.10.1_vs2017_release\addons\ofxLibwebsockets\libs\libwebsockets\include\lws_config.h" />
@@ -291,11 +295,19 @@
     <ClInclude Include="..\..\..\..\..\Downloads\of_v0.10.1_vs2017_release\of_v0.10.1_vs2017_release\addons\ofxLibwebsockets\libs\openssl\include\openssl\x509.h" />
     <ClInclude Include="..\..\..\..\..\Downloads\of_v0.10.1_vs2017_release\of_v0.10.1_vs2017_release\addons\ofxLibwebsockets\libs\openssl\include\openssl\x509v3.h" />
     <ClInclude Include="..\..\..\..\..\Downloads\of_v0.10.1_vs2017_release\of_v0.10.1_vs2017_release\addons\ofxLibwebsockets\libs\openssl\include\openssl\x509_vfy.h" />
+    <ClInclude Include="src\client\comm\WsMessage.h" />
+    <ClInclude Include="src\client\ConnectionListener.h" />
+    <ClInclude Include="src\client\game\BlackjackGame.h" />
+    <ClInclude Include="src\client\game\Card.h" />
+    <ClInclude Include="src\client\game\Dealer.h" />
+    <ClInclude Include="src\client\game\Deck.h" />
+    <ClInclude Include="src\client\game\GameConstants.h" />
+    <ClInclude Include="src\client\game\GameManager.h" />
+    <ClInclude Include="src\client\game\Player.h" />
+    <ClInclude Include="src\client\game\utils\TimeUtils.h" />
+    <ClInclude Include="src\client\ofApp.h" />
     <ClInclude Include="src\server\ConnectionConstants.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClInclude>
-    <ClInclude Include="src\server\CppConnectionWrapper.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="src\server\GameConnection.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -303,6 +315,7 @@
     <ClInclude Include="src\server\GameConnectionManager.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="src\server\utils\ConnectionUtils.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="$(OF_ROOT)\libs\openFrameworksCompiled\project\vs\openframeworksLib.vcxproj">

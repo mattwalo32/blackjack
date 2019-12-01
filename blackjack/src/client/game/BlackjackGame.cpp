@@ -17,7 +17,9 @@ void BlackjackGame::startGame() {
 	//TODO: Set current player
 	while (gameIsRunning) {
 		//placeBets();
+		cout << "Dealing cards" << endl;
 		dealCards();
+		cout << "Taking player turns" << endl;
 		//TODO: Check for blackjacks
 		takeTurns();
 	}
@@ -51,17 +53,32 @@ void BlackjackGame::startGame() {
 	}
 }*/
 
-void BlackjackGame::dealCards() {
+//TODO: Make sure deck isn't empty
 
+void BlackjackGame::dealCards() {
 	for (int cardNum = 0; cardNum < GameConstants::NUM_STARTING_CARDS; cardNum++) {
 		for (Player* player : players) {
-			player->dealCard(deck.drawCard());
+			Card card = deck.drawCard();
+			player->dealCard(card);
+			cout << "Dealt " << card.getRank() << " of " << card.getSuit() << " to " << player->getName();
 		}
 	}
 }
 
+/*
+ * See if each player wants to hit or stay. May freeze thread while waiting
+ * for response.
+ */
 void BlackjackGame::takeTurns() {
-
+	for (Player* player : players) {
+		cout << "Taking " << player->getName() << "'s turn" << endl;
+		while (!player->isBust() && player->wantsToHit()) {
+			cout << player->getName() << " drew a card" << endl;
+			player->dealCard(deck.drawCard());
+			cout << "Taking " << player->getName() << "'s turn" << endl;
+		}
+		cout << player->getName() << "'s turn is over" << endl;
+	}
 }
 
 /*

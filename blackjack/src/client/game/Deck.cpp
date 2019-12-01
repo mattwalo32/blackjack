@@ -50,3 +50,12 @@ void Deck::shuffleCards() {
 	cards = shuffledDeck;
 }
 
+Card Deck::drawCard() {
+	if (cards.size() > 0) {
+		Card card = *cards.at(cards.size() - 1);
+		cards.pop_back();
+		return card;
+	}
+
+	throw std::runtime_error("No cards in deck");
+}

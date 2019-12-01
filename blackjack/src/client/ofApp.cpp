@@ -2,29 +2,14 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-	// 1 - get default options
-	ofxLibwebsockets::ClientOptions options = ofxLibwebsockets::defaultClientOptions();
-
-	// 2 - set basic params
-	options.host = "localhost";
-	options.port = 9090;
-	options.channel = "/socket";
-
-	// advanced: set keep-alive timeouts for events like
-	// loss of internet
-
-	// 3 - set keep alive params
-	// BIG GOTCHA: on BSD systems, e.g. Mac OS X, these time params are system-wide
-	// ...so ka_time just says "check if alive when you want" instead of "check if
-	// alive after X seconds"
-   //options.ka_time     = 1;
-	//options.ka_probes   = 1;
-	//options.ka_interval = 1
-
-	// 4 - connect
-	client.connect(options);
-	client.addListener(this);
-	client.send("TEST");
+	//ofxLibwebsockets::ClientOptions options = ofxLibwebsockets::defaultClientOptions();
+	//options.host = "localhost";
+	//options.port = 9090;
+	//options.channel = "/socket";
+	//client.connect(options);
+	//client.addListener(this);
+	//manager.openLobby();
+	manager.init();
 }
 
 //--------------------------------------------------------------
@@ -69,7 +54,7 @@ void ofApp::draw(){
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-
+	manager.startGame();
 }
 
 //--------------------------------------------------------------

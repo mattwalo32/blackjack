@@ -12,11 +12,13 @@ WsMessage::WsMessage(std::string message) {
 	rawMessage = message;
 
 	if (rawMessage.find(":") != std::string::npos) {
-		int delimIndex = rawMessage.find_last_of(":");
-		messageContents = rawMessage.substr(0, delimIndex);
+		int lastDelimIndex = rawMessage.find_last_of(":");
+		int firstDelimIndex = rawMessage.find(":");
+		messageContents = rawMessage.substr(0, lastDelimIndex);
+		prefix = rawMessage.substr(0, firstDelimIndex + 1);
 
-		if (rawMessage.length - 1 > delimIndex) {
-			senderName = rawMessage.substr(delimIndex + 1);
+		if (rawMessage.length() - 1 > lastDelimIndex) {
+			senderName = rawMessage.substr(lastDelimIndex + 1);
 			hasSender = true;
 		} else {
 			senderName = "";
@@ -35,6 +37,10 @@ std::string WsMessage::getMessageContents() {
 
 std::string WsMessage::getSenderName() {
 	return senderName;
+}
+
+std::string WsMessage::getPrefix() {
+	return prefix;
 }
 
 bool WsMessage::msgHasSender() {

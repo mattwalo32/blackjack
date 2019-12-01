@@ -92,7 +92,7 @@ WsMessage Player::getPlayerResponse(std::vector<std::string> expectedPrefixes, v
 		std::vector<WsMessage> messages = connection->clearBuffer();
 		for (WsMessage message : messages) {
 			for (std::string command : expectedPrefixes) {
-				std::string prefix = command.substr(0, command.length - 1);
+				std::string prefix = command.substr(0, command.length() - 1);
 				if (ConnectionUtils::cmdHasPrefix(message.getMessageContents(), prefix))
 					if (isValid(message))
 						return message;
@@ -123,6 +123,10 @@ void Player::clearHand() {
 
 void Player::setCurrentBet(int betAmount) {
 	currentBet = betAmount;
+}
+
+void Player::setName(std::string name) {
+	this->name = name;
 }
 
 int Player::getBalance() {
