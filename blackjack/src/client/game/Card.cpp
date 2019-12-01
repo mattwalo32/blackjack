@@ -14,7 +14,12 @@ Card::Card(Card::Rank rank, Card::Suit suit) {
  */
 std::string Card::getCode() {
 	int code = rank * numSuits + suit;
-	return std::to_string(code);
+	std::string codeStr = std::to_string(code);
+
+	if (codeStr.length() == 1)
+		codeStr = "0" + codeStr;
+
+	return codeStr;
 }
 
 int Card::getValue() {

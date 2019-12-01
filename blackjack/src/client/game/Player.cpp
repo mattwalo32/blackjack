@@ -77,7 +77,7 @@ bool Player::wantsToHit() {
  * or the user takes their turn, this method returns.
  */
 WsMessage Player::getPlayerResponse(std::vector<std::string> expectedPrefixes, validationFunc isValid) {
-	int secondsLeft = GameConstants::TURN_TIME_MILLIS;
+	int secondsLeft = GameConstants::TURN_TIME_SECONDS;
 	unsigned __int64 startTime = TimeUtils::systemTimeMillis();
 	unsigned __int64 currentTime = startTime;
 

@@ -129,6 +129,9 @@
     <Filter Include="src\client\comm">
       <UniqueIdentifier>{1c91950d-daef-4a90-96b5-24eaa437ed03}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\server\frontend">
+      <UniqueIdentifier>{253ca8bc-2a02-494f-9a8a-d6654c6e399f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\..\Downloads\of_v0.10.1_vs2017_release\of_v0.10.1_vs2017_release\addons\ofxLibwebsockets\src\ofxLibwebsockets.h">
@@ -434,5 +437,13 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\seasocks\src\ws_test_web\index.html">
+      <Filter>src\server\frontend</Filter>
+    </None>
+    <None Include="src\seasocks\src\ws_test_web\app.js">
+      <Filter>src\server\frontend</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -1,5 +1,42 @@
 var ws;
 
+function cardCodeToString(code) {
+    let suit = "";
+
+    switch (suit % 4) {
+        case 0:
+            suit = "Diamonds";
+            break;
+        case 1:
+            suit = "Hearts";
+            break;
+        case 2:
+            suit = "Spades";
+            break;
+        case 3:
+            suit = "Clubs";
+    }
+
+    let rankValue = Math.floor(code / 4) + 1;
+    let rank = rankValue.toString();
+
+    switch (rankValue) {
+        case 1:
+            rank = "Ace";
+            break;
+        case 11:
+            rank = "Jack";
+            break;
+        case 12:
+            rank = "Queen";
+            break;
+        case 13:
+            rank = "King";
+    }
+
+    return rank.concat(" of ", suit);
+}
+
 $(function() {
     ws = new WebSocket('ws://' + document.location.host + '/socket');
     ws.onopen = function() {
@@ -14,7 +51,13 @@ $(function() {
 
     ws.onmessage = function(message) {
         console.log("got '" + message.data + "'");
-        $("body").append("<p>" + message.data + "</p>");
+
+        if (message.data.substring(0, 5) == "SEND:") {
+            let cardCode = message.data.substring(5, 7);
+            $("body").append("<p> You have " + cardCodeToString(cardCode) + "</p>");
+        }
+
+       // $("body").append("<p>" + message.data + "</p>");
     };
 
     ws.onerror = function(error) {
@@ -26,7 +69,15 @@ $(function() {
     	ws.send("SETNAME:" + $('#name').val());
     });
 
-    $('#sendCommand').click(function() {
-    	ws.send($('#command').val());
+    $('#hitButton').click(function () {
+        ws.send("HIT:");
     });
+
+    $('#standButton').click(function () {
+        ws.send("STAND:");
+    });
+
+    /*$('#sendCommand').click(function() {
+    	ws.send($('#command').val());
+    });*/
 });
