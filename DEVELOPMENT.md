@@ -44,4 +44,16 @@ machine. I also ran into problems with this and I decided to try using a websock
 [ofxLibwebsockets](https://github.com/robotconscience/ofxLibwebsockets) library since it's an addon for openframework. I found that 
 if I generated a new project with this addon (as opposed to using the update button in the project generator), I could get this library
 to compile. So, I ended up generating a new project with this addon, and I moved all of the project files into this new folder. This
-ended up working well, so I could now connect the C Client to the websocket server.
+ended up working well, so I can now connect the C Client to the websocket server.
+
+### Game Logic
+I created most of the logic for the actual blackjack game at this point. The users will be added to a match, dealt cards, then asked if they
+want to hit or stand. I still need to implement determining the winner at the end of each round. I started to add betting to the game, but I decided
+to wait to add that until later -- I want to get a running version of the game with graphics before I add this feature. I connected this game
+logic to my connection listener on the client side so that the web clients can actually send commands to the c client. So far, the web clients
+are dealt cards and can decide to hit or stand.
+
+#### Server Commands
+I added a few more commands to the server:
+-```TIMELEFT:<Time>:<PlayerName>``` Sent by C Client to notify a web client that it is their turn and they have a certain amount of time left.
+-```TURNEND:<PlayerName>``` Send by C Client to notify a web client that their turn is over.
