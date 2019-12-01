@@ -2,44 +2,7 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-	//ofxLibwebsockets::ClientOptions options = ofxLibwebsockets::defaultClientOptions();
-	//options.host = "localhost";
-	//options.port = 9090;
-	//options.channel = "/socket";
-	//client.connect(options);
-	//client.addListener(this);
-	//manager.openLobby();
 	manager.init();
-}
-
-//--------------------------------------------------------------
-void ofApp::onConnect(ofxLibwebsockets::Event& args) {
-	cout << "on connected" << endl;
-}
-
-//--------------------------------------------------------------
-void ofApp::onOpen(ofxLibwebsockets::Event& args) {
-	cout << "on open" << endl;
-}
-
-//--------------------------------------------------------------
-void ofApp::onClose(ofxLibwebsockets::Event& args) {
-	cout << "on close" << endl;
-}
-
-//--------------------------------------------------------------
-void ofApp::onIdle(ofxLibwebsockets::Event& args) {
-	cout << "on idle" << endl;
-}
-
-//--------------------------------------------------------------
-void ofApp::onMessage(ofxLibwebsockets::Event& args) {
-	cout << "got message " << args.message << endl;
-}
-
-//--------------------------------------------------------------
-void ofApp::onBroadcast(ofxLibwebsockets::Event& args) {
-	cout << "got broadcast " << args.message << endl;
 }
 
 //--------------------------------------------------------------

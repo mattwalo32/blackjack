@@ -1,7 +1,6 @@
 #pragma once
 
 #include "ofMain.h"
-#include "ofxLibwebsockets.h"
 #include "game/GameManager.h"
 #include "game/GameConstants.h"
 
@@ -25,14 +24,6 @@ class ofApp : public ofBaseApp {
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 
-		ofxLibwebsockets::Client client;
+	private:
 		GameManager manager;
-
-		// websocket methods
-		void onConnect(ofxLibwebsockets::Event& args);
-		void onOpen(ofxLibwebsockets::Event& args);
-		void onClose(ofxLibwebsockets::Event& args);
-		void onIdle(ofxLibwebsockets::Event& args);
-		void onMessage(ofxLibwebsockets::Event& args);
-		void onBroadcast(ofxLibwebsockets::Event& args);
 };
