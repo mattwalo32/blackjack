@@ -109,6 +109,11 @@ void GameConnectionManager::processCommand(seasocks::WebSocket* connection, std:
 
 			sendCard(conn, playerName, cardCode);
 		}
+
+		// Notify player of time left
+		if (ConnectionUtils::cmdHasPrefix(cmd, CMD_TIMELEFT)) {
+			notifyUserTime(cmd);
+		}
     }
 }
 
@@ -165,6 +170,22 @@ void GameConnectionManager::sendCard(GameConnection* connection, std::string pla
 	GameConnection* gameConnection = getConnectionByName(playerName);
 	if(gameConnection != nullptr)
 		gameConnection->getConnection()->send(dealMsg);
+}
+
+void GameConnectionManager::notifyUserTime(std::string cmd) {
+	int firstDelimIndex = cmd.find(":");
+	int lastDelimIndex = cmd.find_last_of(":");
+
+	std::string timeRemaining = cmd.substr(firstDelimIndex + 1, lastDelimIndex - firstDelimIndex - 1);
+	std::string playerName = cmd.substr(lastDelimIndex + 1);
+	std::string timeLeftCmd = CMD_TIMELEFT + timeRemaining;
+
+	//std::cout << timeRemaining << " " << playerName << " " << timeLeftCmd;
+
+	GameConnection* connection = getConnectionByName(playerName);
+	
+	if (connection)
+		connection->getConnection()->send(timeLeftCmd);
 }
 
 /*

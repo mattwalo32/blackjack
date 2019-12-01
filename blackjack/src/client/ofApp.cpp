@@ -20,8 +20,9 @@ void ofApp::draw(){
 }
 
 //--------------------------------------------------------------
-void ofApp::keyPressed(int key){
-	gameThread = new std::thread(&GameManager::startGame, &manager);
+void ofApp::keyPressed(int key) {
+	if(!gameThread)
+		gameThread = new std::thread(&GameManager::startGame, &manager);
 }
 
 //--------------------------------------------------------------
