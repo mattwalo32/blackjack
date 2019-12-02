@@ -25,6 +25,7 @@ namespace GameConstants {
 
 	const int NUM_STARTING_CARDS = 2;
 	const int DEFAULT_NUM_DECKS = 6;
+	const int ROUND_RESET_DELAY_SEC = 3;
 	const int TURN_TIME_SECONDS = 20;
 	const int TURN_TIME_MILLIS = TURN_TIME_SECONDS * 1000;
 

@@ -29,6 +29,7 @@ void BlackjackGame::startGame() {
 		updateWinners(winners);
 		winners.clear();
 		clearHand();
+		std::this_thread::sleep_for(std::chrono::seconds(GameConstants::ROUND_RESET_DELAY_SEC));
 	}
 }
 //TODO: Make sure deck isn't empty

@@ -54,7 +54,8 @@ $(function() {
 
         if (message.data.substring(0, 5) == "SEND:") {
             let cardCode = message.data.substring(5, 7);
-            $("body").append("<p> You have " + cardCodeToString(cardCode) + "</p>");
+            $("#cards").append("<p> You have " + cardCodeToString(cardCode) + "</p>");
+            $("#winners").empty();
         } else if (message.data.substring(0, 9) == "TIMELEFT:") {
             let time = message.data.substring(9, message.data.length);
             $("#timedialog").text("It's your turn! You have " + time + " seconds left.")
@@ -62,7 +63,8 @@ $(function() {
             $("#timedialog").text("It's not your turn yet.");
         } else if (message.data.substring(0, 8) == "WINNERS:") {
             let name = message.data.substring(8, message.data.length);
-            $("#winners").append("<p>" + name + " won the round.</p>");
+            $("#winners").append("<h3>" + name + " won the round.</h3>");
+            $("#cards").empty();
         }
 
        // $("body").append("<p>" + message.data + "</p>");
