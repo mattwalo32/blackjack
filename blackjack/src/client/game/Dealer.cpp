@@ -2,7 +2,13 @@
 
 using namespace GameConstants;
 
-Dealer::Dealer() : Player(nullptr, "Dealer", 0){
+Dealer::Dealer() {
+	this->name = name;
+	balance = 0;
+	currentHandScore = 0;
+	busted = false;
+	naturalBlackjack = false;
+	connection = nullptr;
 	isDealer = true;
 }
 

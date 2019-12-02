@@ -2,7 +2,7 @@
 
 using namespace TimeUtils;
 
-BlackjackGame::BlackjackGame(std::vector<Player*> players, ConnectionListener* listener) {
+BlackjackGame::BlackjackGame(std::vector<Strategy*> players, ConnectionListener* listener) {
 	this->players = players;
 	connection = listener;
 	gameIsRunning = false;
@@ -57,7 +57,7 @@ void BlackjackGame::startGame() {
 
 void BlackjackGame::dealCards() {
 	for (int cardNum = 0; cardNum < GameConstants::NUM_STARTING_CARDS; cardNum++) {
-		for (Player* player : players) {
+		for (Strategy* player : players) {
 			Card card = deck.drawCard();
 			player->dealCard(card);
 			cout << "Dealt " << card.getRank() << " of " << card.getSuit() << " to " << player->getName() << endl;
@@ -70,7 +70,7 @@ void BlackjackGame::dealCards() {
  * for response.
  */
 void BlackjackGame::takeTurns() {
-	for (Player* player : players) {
+	for (Strategy* player : players) {
 		cout << "Taking " << player->getName() << "'s turn" << endl;
 		while (!player->isBust() && player->wantsToHit()) {
 			cout << player->getName() << " drew a card" << endl;

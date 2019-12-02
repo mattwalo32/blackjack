@@ -1,4 +1,5 @@
 #include "GameManager.h"
+#include "Dealer.h"
 
 GameManager::~GameManager() {
 	players.clear();
@@ -24,9 +25,9 @@ void GameManager::updatePlayerName(WsMessage msg) {
 	int delimIndex = msg.getMessageContents().find(":");
 	std::string newName = msg.getMessageContents().substr(delimIndex + 1);
 
-	Player* playerToUpdate = nullptr;
+	Strategy* playerToUpdate = nullptr;
 
-	for (Player* player : this->getPlayers()) {
+	for (Strategy* player : this->getPlayers()) {
 		if (player->getName() == msg.getSenderName()) {
 			playerToUpdate = player;
 			break;
@@ -48,9 +49,10 @@ void GameManager::addPlayer(WsMessage msg) {
 void GameManager::startGame() {
 	cout << "Starting Game" << endl;
 	game = new BlackjackGame(players, &connListener);
+	//game->addPlayer(new Dealer());
 	game->startGame();
 }
 
-std::vector<Player*> GameManager::getPlayers() {
+std::vector<Strategy*> GameManager::getPlayers() {
 	return players;
 }

@@ -195,6 +195,7 @@
     <ClCompile Include="src\client\game\Deck.cpp" />
     <ClCompile Include="src\client\game\GameManager.cpp" />
     <ClCompile Include="src\client\game\Player.cpp" />
+    <ClCompile Include="src\client\game\Strategy.cpp" />
     <ClCompile Include="src\client\game\utils\TimeUtils.cpp" />
     <ClCompile Include="src\client\main.cpp" />
     <ClCompile Include="src\client\ofApp.cpp" />
@@ -304,6 +305,7 @@
     <ClInclude Include="src\client\game\GameConstants.h" />
     <ClInclude Include="src\client\game\GameManager.h" />
     <ClInclude Include="src\client\game\Player.h" />
+    <ClInclude Include="src\client\game\Strategy.h" />
     <ClInclude Include="src\client\game\utils\TimeUtils.h" />
     <ClInclude Include="src\client\ofApp.h" />
     <ClInclude Include="src\server\ConnectionConstants.h">

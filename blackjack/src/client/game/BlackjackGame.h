@@ -12,7 +12,7 @@
 
 class BlackjackGame {
 public:
-	BlackjackGame(std::vector<Player*> players, ConnectionListener* listener);
+	BlackjackGame(std::vector<Strategy*> players, ConnectionListener* listener);
 	void startGame();
 	void resetGame();
 
@@ -21,8 +21,8 @@ public:
 
 private:
 	Deck deck;
-	std::vector<Player*> players;
-	Player* currentPlayer;
+	std::vector<Strategy*> players;
+	Strategy* currentPlayer;
 	ConnectionListener* connection;
 	bool gameIsRunning;
 
