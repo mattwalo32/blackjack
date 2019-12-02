@@ -3,7 +3,7 @@
 using namespace GameConstants;
 
 Dealer::Dealer() {
-	this->name = name;
+	this->name = "Dealer";
 	balance = 0;
 	currentHandScore = 0;
 	busted = false;

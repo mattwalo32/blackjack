@@ -79,7 +79,7 @@ $(function() {
     });
 
     $('#standButton').click(function () {
-        ws.send("STAND:");
+        ws.send("STAY:");
     });
 
     /*$('#sendCommand').click(function() {

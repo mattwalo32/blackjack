@@ -25,10 +25,13 @@ bool Player::wantsToHit() {
 	std::vector<std::string> validResponses = { ConnectionConstants::CMD_STAY, ConnectionConstants::CMD_HIT };
 	
 	WsMessage response = getPlayerResponse(validResponses, [this](WsMessage msg) {
+		cout << "NAME: " << msg.getSenderName() << endl;
 		return msg.getSenderName() == this->getName();
 	});
 
-	return response.getMessageContents() + ":" == ConnectionConstants::CMD_HIT;
+	cout << endl << endl << response.getSenderName() << " " << response.getPrefix() << endl;
+
+	return response.getPrefix() == ConnectionConstants::CMD_HIT;
 }
 
 /*
@@ -51,9 +54,9 @@ WsMessage Player::getPlayerResponse(std::vector<std::string> expectedPrefixes, v
 
 		std::vector<WsMessage> messages = connection->clearBuffer();
 		for (WsMessage message : messages) {
-			for (std::string command : expectedPrefixes) {
-				std::string prefix = command.substr(0, command.length() - 1);
-				if (ConnectionUtils::cmdHasPrefix(message.getMessageContents(), prefix))
+			for (std::string prefix : expectedPrefixes) {
+				cout << message.getPrefix() << endl;
+				if (ConnectionUtils::cmdHasPrefix(message.getPrefix(), prefix))
 					if (isValid(message))
 						return message;
 			}

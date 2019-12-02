@@ -48,8 +48,8 @@ void GameManager::addPlayer(WsMessage msg) {
 
 void GameManager::startGame() {
 	cout << "Starting Game" << endl;
+	players.push_back(new Dealer());
 	game = new BlackjackGame(players, &connListener);
-	//game->addPlayer(new Dealer());
 	game->startGame();
 }
 
