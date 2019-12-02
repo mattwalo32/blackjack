@@ -70,6 +70,12 @@
     <ClCompile Include="src\client\game\Strategy.cpp">
       <Filter>src\client\game</Filter>
     </ClCompile>
+    <ClCompile Include="src\test\testMain.cpp">
+      <Filter>src\test</Filter>
+    </ClCompile>
+    <ClCompile Include="src\test\gameTests.cpp">
+      <Filter>src\test</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -134,6 +140,9 @@
     </Filter>
     <Filter Include="src\server\frontend">
       <UniqueIdentifier>{253ca8bc-2a02-494f-9a8a-d6654c6e399f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\test">
+      <UniqueIdentifier>{23e431a7-a2b5-4e07-9f25-f2cb2ceca4bc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -439,6 +448,9 @@
     </ClInclude>
     <ClInclude Include="src\client\game\Strategy.h">
       <Filter>src\client\game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\test\catch.hpp">
+      <Filter>src\test</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
