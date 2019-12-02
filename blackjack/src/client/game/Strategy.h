@@ -30,6 +30,7 @@ public:
 	int getCurrentBet();
 	int getBalance();
 	int getNumWins();
+	int getHandValue();
 	bool isBust();
 	bool hasNaturalBlackjack();
 	bool playerIsDealer();

@@ -29,5 +29,7 @@ private:
 	void placeBets();
 	void dealCards();
 	void takeTurns();
-	void checkBlackjacks();
+	void updateWinners(std::vector<Strategy*> winners);
+	void clearHand();
+	std::vector<Strategy*> getWinners(bool turnsAreFinished);
 };

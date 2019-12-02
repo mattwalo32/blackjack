@@ -14,45 +14,23 @@ BlackjackGame::BlackjackGame(std::vector<Strategy*> players, ConnectionListener*
  */
 void BlackjackGame::startGame() {
 	gameIsRunning = true;
-	//TODO: Set current player
+	std::vector<Strategy*> winners;
+
 	while (gameIsRunning) {
-		//placeBets();
 		cout << "Dealing cards" << endl;
 		dealCards();
-		cout << "Taking player turns" << endl;
-		//TODO: Check for blackjacks
-		takeTurns();
+		winners = getWinners(false);
+		if (winners.size() == 0) {
+			cout << "Taking player turns" << endl;
+			takeTurns();
+			winners = getWinners(true);
+		}
+
+		updateWinners(winners);
+		winners.clear();
+		clearHand();
 	}
 }
-
-/*void BlackjackGame::placeBets() {
-	for (Player* player : players) {
-		currentPlayer = player;
-
-		WsMessage response = getPlayerResponse({ ConnectionConstants::CMD_BET },
-			[](WsMessage message, Player* currentPlayer) {
-			
-			if (message.getSenderName() != currentPlayer->getName())
-				return false;
-
-			std::string amountStr = message.getMessageContents();
-			int bet;
-
-			try {
-				bet = std::stoi(amountStr);
-			} catch (std::exception e) {
-				return false;
-			}
-
-			return bet <= currentPlayer->getBalance();
-		});
-
-		int bet = std::stoi(response.getMessageContents());
-
-		//TODO: Finish implementing
-	}
-}*/
-
 //TODO: Make sure deck isn't empty
 
 void BlackjackGame::dealCards() {
@@ -82,36 +60,48 @@ void BlackjackGame::takeTurns() {
 	}
 }
 
+void BlackjackGame::clearHand() {
+	for (Strategy* player : players)
+		player->clearHand();
+}
+
+void BlackjackGame::updateWinners(std::vector<Strategy*> winners) {
+	for (Strategy* player : players) {
+		player->addWin();
+		std::string winnerMsg = ConnectionConstants::CMD_BROADCAST_WINNER + player->getName();
+		connection->sendMessage(winnerMsg);
+	}
+}
+
 /*
- * Waits for a response from the user. This method will wait a certain amount
- * of time and notify the server how much time is left. If the time runs out
- * or the user takes their turn, this method returns.
+ * Returns a list of all the winners in a round. If the turns are not
+ * finished (the players have not taken their turns), then only players dealt
+ * a natural blackjack are considered winners. If the turns are finished, the players
+ * with the highest value hand are winners.
  */
-/*WsMessage BlackjackGame::getPlayerResponse(std::vector<std::string> expectedPrefixes, validationFunction isValid) {
-	int secondsLeft = GameConstants::TURN_TIME_MILLIS;
-	unsigned __int64 startTime = systemTimeMillis();
-	unsigned __int64 currentTime = startTime;
+std::vector<Strategy*> BlackjackGame::getWinners(bool turnsAreFinished) {
+	std::vector<Strategy*> winners;
 
-
-	while (startTime + GameConstants::TURN_TIME_MILLIS > currentTime) {
-		currentTime = systemTimeMillis();
-		
-		connection->sendMessage(ConnectionConstants::CMD_TIMELEFT + 
-			currentPlayer->getName() + ":" + std::to_string(secondsLeft));
-
-		std::vector<WsMessage> messages = connection->clearBuffer();
-		for (WsMessage message : messages) {
-			for (std::string prefix : expectedPrefixes) {
-				if (ConnectionUtils::cmdHasPrefix(message.getMessageContents(), prefix))
-					if(isValid(message, currentPlayer))
-					// TODO: Check response is valid
-						return message;
+	if (!turnsAreFinished) {
+		for (Strategy* player : players) {
+			if (player->hasNaturalBlackjack()) {
+				winners.push_back(player);
 			}
 		}
 
-		std::this_thread::sleep_for(std::chrono::milliseconds(1000 - (systemTimeMillis() - currentTime)));
-		secondsLeft--;
-	} 
+		return winners;
+	}
+	
+	int highScore = 0;
+	for (Strategy* player : players) {
+		if (!player->isBust() && player->getHandValue() >= highScore) {
+			if (player->getHandValue() != highScore)
+				winners.clear();
 
-	return "";
-}*/
+			highScore = player->getHandValue();
+			winners.push_back(player);
+		}
+	}
+
+	return winners;
+}

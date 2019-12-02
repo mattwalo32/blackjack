@@ -6,7 +6,7 @@ void Strategy::dealCard(Card card) {};
 bool Strategy::wantsToHit() { return false;  }
 
 /*
- * calculates the score of their
+ * Calculates the score of their
  * hand, if they busted, and if they have a natural blackjack(10 card and ace).
  * Since aces can be either 1s or 11s, the best valid score of the player is
  * taken.For example with the hand "3, 4, ACE, ACE" The value would be 19 because
@@ -77,6 +77,10 @@ int Strategy::getCurrentBet() {
 
 int Strategy::getNumWins() {
 	return numWins;
+}
+
+int Strategy::getHandValue() {
+	return currentHandScore;
 }
 
 bool Strategy::isBust() {

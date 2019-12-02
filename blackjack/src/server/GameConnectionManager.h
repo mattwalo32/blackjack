@@ -18,6 +18,7 @@ public:
 	void sendCard(GameConnection* connection, std::string playerName, std::string cardCode);
 	void notifyUserTime(std::string cmd);
 	void notifyUserTurnOver(std::string cmd);
+	void broadcastWinner(std::string cmd);
 	
 	void reset();
 

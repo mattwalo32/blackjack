@@ -118,6 +118,10 @@ void GameConnectionManager::processCommand(seasocks::WebSocket* connection, std:
 		if (ConnectionUtils::cmdHasPrefix(cmd, CMD_TURNEND)) {
 			notifyUserTurnOver(cmd);
 		}
+
+		if (ConnectionUtils::cmdHasPrefix(cmd, CMD_BROADCAST_WINNER)) {
+			broadcastWinner(cmd);
+		}
     }
 }
 
@@ -208,6 +212,16 @@ void GameConnectionManager::notifyUserTurnOver(std::string cmd) {
 
 	if (connection)
 		connection->getConnection()->send(CMD_TURNEND);
+}
+
+void GameConnectionManager::broadcastWinner(std::string cmd) {
+	int delimIndex = cmd.find(":");
+
+	std::string playerName = cmd.substr(delimIndex + 1);
+
+	for (GameConnection* conn : connections) {
+		conn->getConnection()->send(cmd);
+	}
 }
 
 /*

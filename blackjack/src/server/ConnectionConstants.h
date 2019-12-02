@@ -24,6 +24,7 @@ namespace ConnectionConstants {
 	const std::string CMD_TIMELEFT = "TIMELEFT:";
 	const std::string CMD_TURNEND = "TURNEND:";
 	const std::string CMD_MSG_PLAYER = "MSG:";
+	const std::string CMD_BROADCAST_WINNER = "WINNERS:";
 
 	const std::string MSG_GAME_FULL = "Could not join, game is full.";
 	const std::string MSG_C_CLIENT_EXISTS = "There is already a C client in the game.";
