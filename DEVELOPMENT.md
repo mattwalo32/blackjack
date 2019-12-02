@@ -1,4 +1,4 @@
-# Week One
+# Week One (11/14 - 11/19)
 
 ### Setting up the project
 The project was created with the OpenFrameworks project generator, and the seasocks was cloned from the
@@ -10,10 +10,7 @@ except for a select few that were modified.
 After cloning this repository, seasocks should be cloned to ```\blackjack\src``` into a folder named ```seasocks```. After this,
 all seasocks files that are present in this repository should replace the ones that were just cloned.    
 
-Easy WS Client is used to open the web socket connection from the C client. Since this library is only a .hpp and .cpp file, it
-is committed directly to ```\blackjack\src\easywsclient```.
-
-Note: the files in ```\blackjack\src\server``` are not compiled in visual studio, and they should be excluded from the build otherwise
+Note: All the files except ```ConnectionConstants.h``` in ```\blackjack\src\server``` are not compiled in visual studio, and they should be excluded from the build otherwise
 Visual Studio will throw errors. To do this, right click on each file in the folder, select properties, and select 'exclude from build'.    
 
 ### Setting up the server
@@ -35,25 +32,47 @@ This week, I implemented to following commands for the server:
 - ```HIT:``` Sent by the web client to indicate they want to recieve a card. This can only be called by Web Client.
 - ```STAY:``` Sent by the web client to indicate they want to stay. This can only be called by Web Client.
 
-# Week Two
+# Week Two (11/20 - 11/26)
 ### Connecting C Client to Web Socket
-During the end of last week, I tried about four different libraries for connecting to the web socket from the c++ client,
-and none of them could be integrated well with the project. After spending about 15 hours trying to get these libraries to work,
-I decided that I would just send messages through the Windows OS between the client and server since they're running on the same
-machine. I also ran into problems with this and I decided to try using a websocket library for the C Client one more time. I tried using the
-[ofxLibwebsockets](https://github.com/robotconscience/ofxLibwebsockets) library since it's an addon for openframework. I found that 
-if I generated a new project with this addon (as opposed to using the update button in the project generator), I could get this library
-to compile. So, I ended up generating a new project with this addon, and I moved all of the project files into this new folder. This
-ended up working well, so I can now connect the C Client to the websocket server.
+This week I tried using many different libraries to connect to the web socket server from the c++ client,
+and none of them could be integrated well with the project. I tried using easywsclient, boostbeast, ofxlibwebsockets,
+boostbeast, and various other libraries, but I couldn't get them to compile when added to the project.    
+
+After spending about 15 hours trying to get these libraries to work, I decided that I would just send messages through the Windows OS between the client and server since they're running on the same machine. This could be achieved through using the ```WM_COPYDATA```
+message provided by windows OS. I also ran into problems while implementing this and I decided to try using a websocket library for the C Client one more time. I tried using the [ofxLibwebsockets](https://github.com/robotconscience/ofxLibwebsockets) library again since it's an addon for openframework, so it should've been easy to integrate. I found that 
+if I generated a new project with this addon (as opposed to using the update button in the project generator), and if I used Visual
+Studio 2017, I could get this library to compile. So, I ended up generating a new project with this addon, and I moved all of the project files into this new folder. This ended up working well, so I can now connect the C Client to the websocket server.    
+
+
+# Week Three (11/27 - 12/3)
+### C Client Connection
+I created a simple message handler for the C client so that messages could easily be sent between the server and client. 
+I also created a ```WsMessage``` class to convieniently store metadata about messages from the server.    
 
 ### Game Logic
-I created most of the logic for the actual blackjack game at this point. The users will be added to a match, dealt cards, then asked if they
-want to hit or stand. I still need to implement determining the winner at the end of each round. I started to add betting to the game, but I decided
-to wait to add that until later -- I want to get a running version of the game with graphics before I add this feature. I connected this game
-logic to my connection listener on the client side so that the web clients can actually send commands to the c client. So far, the web clients
-are dealt cards and can decide to hit or stand.
+I created most of the logic for the actual blackjack game. This involved creating the following classes:  
+-```GameManager``` Manages the blackjack game, the websocket connection, and the players.
+-```BlackjackGame``` Runs through a blackjack game, handling all the game logic.
+-```Deck``` Represents the draw pile.
+-```Card``` Represents a single card in the draw pile.
+-```Strategy``` An interface that declares what methods different types of players must implement.
+-```Player``` Implements ```Strategy``` and represents a player who is using the web client.
+-```Dealer``` Implements ```Strategy``` and represents a bot dealer.
+  
+I also created various utility classes and headers to hold constants. The general flow of a game, as managed
+by ```BlackjackGame``` is as follows:  
+The C client connects to the server and then the webclients join the game by sending their name to the server. The
+players will be added to a match along with a dealer. Then they're dealt cards, then asked if they
+want to hit or stand. After everyone makes a decision, anyone with a score greater than the dealer wins, and if there's
+a tie, they both win. I started to add betting to the game, but I decided to wait to add that until later -- I want to get a running version of the game with graphics before I add this feature. I connected this game logic to my connection listener on the client side so that the web clients can actually send commands to the c client.
 
-#### Server Commands
+### Server Commands
 I added a few more commands to the server:
 -```TIMELEFT:<Time>:<PlayerName>``` Sent by C Client to notify a web client that it is their turn and they have a certain amount of time left.
 -```TURNEND:<PlayerName>``` Send by C Client to notify a web client that their turn is over.
+-```WINNER:<PlayerName>``` Send by C Client to notify all web clients that someone has one.
+
+### Web Client
+I updated the HTML and Javascript of the web client a little bit. Now the users have a button to hit or stay, a
+dialogue showing how much time is left in their turn, a dialogue showing what cards they have, and a dialogue showing
+who won the round.

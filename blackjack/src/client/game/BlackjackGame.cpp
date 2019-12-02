@@ -17,11 +17,10 @@ void BlackjackGame::startGame() {
 	std::vector<Strategy*> winners;
 
 	while (gameIsRunning) {
-		cout << "Dealing cards" << endl;
 		dealCards();
 		winners = getWinners(false);
+
 		if (winners.size() == 0) {
-			cout << "Taking player turns" << endl;
 			takeTurns();
 			winners = getWinners(true);
 		}

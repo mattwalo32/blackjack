@@ -43,6 +43,8 @@ void Strategy::updateScore() {
 	busted = bestScore > WINNING_VALUE;
 	naturalBlackjack = currentHand.size() == 2 && bestScore == WINNING_VALUE;
 	currentHandScore = bestScore;
+
+	cout << endl << endl << getName() << " best score " << bestScore << endl;
 }
 
 void Strategy::addToBalance(int amount) {
