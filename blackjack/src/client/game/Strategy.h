@@ -26,8 +26,10 @@ public:
 	void clearHand();
 	
 	void setName(std::string name);
+	void addWin();
 	int getCurrentBet();
 	int getBalance();
+	int getNumWins();
 	bool isBust();
 	bool hasNaturalBlackjack();
 	bool playerIsDealer();
@@ -37,6 +39,7 @@ protected:
 	int balance;
 	int currentBet;
 	int currentHandScore;
+	int numWins;
 	bool busted;
 	bool naturalBlackjack;
 	bool isDealer;

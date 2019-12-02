@@ -29,4 +29,5 @@ private:
 	void placeBets();
 	void dealCards();
 	void takeTurns();
+	void checkBlackjacks();
 };

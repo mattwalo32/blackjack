@@ -59,6 +59,10 @@ void Strategy::clearHand() {
 	busted = false;
 }
 
+void Strategy::addWin() {
+	numWins++;
+}
+
 void Strategy::setName(std::string name) {
 	this->name = name;
 }
@@ -69,6 +73,10 @@ int Strategy::getBalance() {
 
 int Strategy::getCurrentBet() {
 	return currentBet;
+}
+
+int Strategy::getNumWins() {
+	return numWins;
 }
 
 bool Strategy::isBust() {

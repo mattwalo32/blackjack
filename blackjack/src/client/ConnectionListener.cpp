@@ -51,7 +51,6 @@ void ConnectionListener::onIdle(ofxLibwebsockets::Event& args) {
 }
 
 void ConnectionListener::onMessage(ofxLibwebsockets::Event& args) {
-	cout << "RECIEVED: " << args.message;
 	WsMessage msg(args.message);
 	messageBuffer.push_back(msg);
 
