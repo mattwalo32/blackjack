@@ -36,7 +36,7 @@ This week, I implemented to following commands for the server:
 ### Connecting C Client to Web Socket
 This week I tried using many different libraries to connect to the web socket server from the c++ client,
 and none of them could be integrated well with the project. I tried using easywsclient, boostbeast, ofxlibwebsockets,
-boostbeast, and various other libraries, but I couldn't get them to compile when added to the project.    
+websocketpp, and various other libraries, but I couldn't get them to compile when added to the project.    
 
 After spending about 15 hours trying to get these libraries to work, I decided that I would just send messages through the Windows OS between the client and server since they're running on the same machine. This could be achieved through using the ```WM_COPYDATA```
 message provided by windows OS. I also ran into problems while implementing this and I decided to try using a websocket library for the C Client one more time. I tried using the [ofxLibwebsockets](https://github.com/robotconscience/ofxLibwebsockets) library again since it's an addon for openframework, so it should've been easy to integrate. I found that 
@@ -50,17 +50,17 @@ I created a simple message handler for the C client so that messages could easil
 I also created a ```WsMessage``` class to convieniently store metadata about messages from the server.    
 
 ### Game Logic
-I created most of the logic for the actual blackjack game. This involved creating the following classes:  
--```GameManager``` Manages the blackjack game, the websocket connection, and the players.
--```BlackjackGame``` Runs through a blackjack game, handling all the game logic.
--```Deck``` Represents the draw pile.
--```Card``` Represents a single card in the draw pile.
--```Strategy``` An interface that declares what methods different types of players must implement.
--```Player``` Implements ```Strategy``` and represents a player who is using the web client.
--```Dealer``` Implements ```Strategy``` and represents a bot dealer.
+I created most of the logic for the actual blackjack game. This involved creating the following classes:
+- ```GameManager``` Manages the blackjack game, the websocket connection, and the players.
+- ```BlackjackGame``` Runs through a blackjack game, handling all the game logic.
+- ```Deck``` Represents the draw pile.
+- ```Card``` Represents a single card in the draw pile.
+- ```Strategy``` An interface that declares what methods different types of players must implement.
+- ```Player``` Implements ```Strategy``` and represents a player who is using the web client.
+- ```Dealer``` Implements ```Strategy``` and represents a bot dealer.
   
 I also created various utility classes and headers to hold constants. The general flow of a game, as managed
-by ```BlackjackGame``` is as follows:  
+by ```BlackjackGame``` is as follows:    
 The C client connects to the server and then the webclients join the game by sending their name to the server. The
 players will be added to a match along with a dealer. Then they're dealt cards, then asked if they
 want to hit or stand. After everyone makes a decision, anyone with a score greater than the dealer wins, and if there's
@@ -68,9 +68,9 @@ a tie, they both win. I started to add betting to the game, but I decided to wai
 
 ### Server Commands
 I added a few more commands to the server:
--```TIMELEFT:<Time>:<PlayerName>``` Sent by C Client to notify a web client that it is their turn and they have a certain amount of time left.
--```TURNEND:<PlayerName>``` Send by C Client to notify a web client that their turn is over.
--```WINNER:<PlayerName>``` Send by C Client to notify all web clients that someone has one.
+- ```TIMELEFT:<Time>:<PlayerName>``` Sent by C Client to notify a web client that it is their turn and they have a certain amount of time left.
+- ```TURNEND:<PlayerName>``` Send by C Client to notify a web client that their turn is over.
+- ```WINNER:<PlayerName>``` Send by C Client to notify all web clients that someone has one.
 
 ### Web Client
 I updated the HTML and Javascript of the web client a little bit. Now the users have a button to hit or stay, a
