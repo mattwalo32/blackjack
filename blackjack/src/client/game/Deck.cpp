@@ -38,8 +38,10 @@ void Deck::fillDeck() {
 void Deck::shuffleCards() {
 	std::vector<Card*> unshuffledDeck = cards;
 	std::vector<Card*> shuffledDeck;
-	
-	for (int i = 0; i < Card::deckSize; i++) {
+	int numCards = unshuffledDeck.size();
+
+
+	for (int i = 0; i < numCards; i++) {
 		int cardsRemaining = unshuffledDeck.size();
 		int cardIndex = rand() % cardsRemaining;
 
@@ -58,4 +60,8 @@ Card Deck::drawCard() {
 	}
 
 	throw std::runtime_error("No cards in deck");
+}
+
+int Deck::size() {
+	return cards.size();
 }

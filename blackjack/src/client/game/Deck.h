@@ -12,6 +12,7 @@ public:
 
 	void reset();
 	Card drawCard();
+	int size();
 
 private:
 	int numDecks;

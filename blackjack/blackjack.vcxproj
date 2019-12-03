@@ -197,8 +197,12 @@
     <ClCompile Include="src\client\game\Player.cpp" />
     <ClCompile Include="src\client\game\Strategy.cpp" />
     <ClCompile Include="src\client\game\utils\TimeUtils.cpp" />
-    <ClCompile Include="src\client\main.cpp" />
-    <ClCompile Include="src\client\ofApp.cpp" />
+    <ClCompile Include="src\client\main.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\client\ofApp.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="src\seasocks\src\app\c\ws_test.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
@@ -309,7 +313,9 @@
     <ClInclude Include="src\client\game\Player.h" />
     <ClInclude Include="src\client\game\Strategy.h" />
     <ClInclude Include="src\client\game\utils\TimeUtils.h" />
-    <ClInclude Include="src\client\ofApp.h" />
+    <ClInclude Include="src\client\ofApp.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="src\server\ConnectionConstants.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
@@ -337,6 +343,7 @@
   <ItemGroup>
     <None Include="src\seasocks\src\ws_test_web\app.js" />
     <None Include="src\seasocks\src\ws_test_web\index.html" />
+    <None Include="tests.runsettings" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ProjectExtensions>

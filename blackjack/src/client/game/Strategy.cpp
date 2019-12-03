@@ -19,7 +19,7 @@ void Strategy::updateScore() {
 
 	// Add up everything besides the aces
 	for (Card card : currentHand) {
-		if (card.getRank() == Card::ACE) {
+		if (card.getRank() == Card::Rank::ACE) {
 			numAces++;
 			continue;
 		}
@@ -33,6 +33,7 @@ void Strategy::updateScore() {
 	// Calculate best possible hand with aces
 	for (int numHighStates = 0; numHighStates <= numAces; numHighStates++) {
 		int sumOfAces = numHighStates * ACE_HIGH_VALUE + (numAces - numHighStates) * ACE_LOW_VALUE;
+		
 		int totalScore = scoreBeforeAces + sumOfAces;
 
 		if (totalScore > bestScore && (totalScore <= WINNING_VALUE || bestScore == 0)) {

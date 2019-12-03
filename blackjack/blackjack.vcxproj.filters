@@ -463,5 +463,6 @@
     <None Include="src\seasocks\src\ws_test_web\app.js">
       <Filter>src\server\frontend</Filter>
     </None>
+    <None Include="tests.runsettings" />
   </ItemGroup>
 </Project>

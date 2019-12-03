@@ -19,7 +19,6 @@ public:
 	
 	virtual void dealCard(Card card);
 	virtual bool wantsToHit();
-	void updateScore();
 	
 	void addToBalance(int amount);
 	void removeFromBalance(int amount);
@@ -44,6 +43,8 @@ protected:
 	bool busted;
 	bool naturalBlackjack;
 	bool isDealer;
+
+	void updateScore();
 
 	std::string name;
 	std::vector<Card> currentHand;
