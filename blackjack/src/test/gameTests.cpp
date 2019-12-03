@@ -4,6 +4,8 @@
 #include "../client/game/Deck.h"
 #include "../client/game/Dealer.h"
 #include "../client/game/Strategy.h"
+#include "../server/utils/ConnectionUtils.h"
+#include "../client/comm/WsMessage.h"
 
 // CARD TESTS
 TEST_CASE("Cards store state internally") {
@@ -109,4 +111,50 @@ TEST_CASE("Strategies can have natural blackjack") {
 	REQUIRE(strategy.hasNaturalBlackjack());
 	REQUIRE(strategy.getHandValue() == 21);
 	REQUIRE(!strategy.isBust());
+}
+
+// CONNECTION UTILS
+TEST_CASE("Prefixes can be extracted from commands") {
+	std::string command = "PREFIX:COMMAND";
+	REQUIRE(ConnectionUtils::cmdHasPrefix(command, "PREFIX:"));
+	REQUIRE(!ConnectionUtils::cmdHasPrefix(command, "INCORRECT:"));
+}
+
+TEST_CASE("Prefixes can be extracted from commands with multiple delims") {
+	std::string command = "PREFIX:COMMAND:SENDER";
+	REQUIRE(ConnectionUtils::cmdHasPrefix(command, "PREFIX:"));
+	REQUIRE(!ConnectionUtils::cmdHasPrefix(command, "INCORRECT:"));
+}
+
+TEST_CASE("No prefix is extracted when there is no delimeter") {
+	std::string command = "PREFIXCOMMAND";
+	REQUIRE(!ConnectionUtils::cmdHasPrefix(command, "PREFIX:"));
+}
+
+// COMMS
+TEST_CASE("WsMessage parses prefix, contents, and sender") {
+	WsMessage message("PREFIX:CONTENTS:SENDER");
+
+	REQUIRE(message.getPrefix() == "PREFIX:");
+	REQUIRE(message.getMessageContents() == "PREFIX:CONTENTS");
+	REQUIRE(message.getSenderName() == "SENDER");
+	REQUIRE(message.msgHasSender());
+}
+
+TEST_CASE("WsMessage handles messages with extra delimeters") {
+	WsMessage message("PREFIX:CONTENTS:CONTENTS2:::SENDER");
+
+	REQUIRE(message.getPrefix() == "PREFIX:");
+	REQUIRE(message.getMessageContents() == "PREFIX:CONTENTS:CONTENTS2::");
+	REQUIRE(message.getSenderName() == "SENDER");
+	REQUIRE(message.msgHasSender());
+}
+
+TEST_CASE("Messages don't need senders") {
+	WsMessage message("CONTENTS");
+
+	REQUIRE(message.getPrefix() == "");
+	REQUIRE(message.getMessageContents() == "CONTENTS");
+	REQUIRE(message.getSenderName() == "");
+	REQUIRE(!message.msgHasSender());
 }
