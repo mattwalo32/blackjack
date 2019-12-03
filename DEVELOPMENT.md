@@ -76,3 +76,6 @@ I added a few more commands to the server:
 I updated the HTML and Javascript of the web client a little bit. Now the users have a button to hit or stay, a
 dialogue showing how much time is left in their turn, a dialogue showing what cards they have, and a dialogue showing
 who won the round.
+
+### Testing
+I added catch2 testing to the project this week. I wrote about 45 assertions to test various clases and helper methods.
