@@ -6,6 +6,10 @@ BlackjackGame::BlackjackGame(std::vector<Strategy*> players, ConnectionListener*
 	this->players = players;
 	connection = listener;
 	gameIsRunning = false;
+
+	for (Strategy* strategy : players)
+		if (strategy->playerIsDealer())
+			dealer = strategy;
 }
 
 /*
@@ -66,7 +70,12 @@ void BlackjackGame::clearHand() {
 }
 
 void BlackjackGame::updateWinners(std::vector<Strategy*> winners) {
-	for (Strategy* player : players) {
+	if (winners.empty()) {
+		connection->sendMessage(ConnectionConstants::CMD_BROADCAST_WINNER + "No one");
+		return;
+	}
+
+	for (Strategy* player : winners) {
 		player->addWin();
 		std::string winnerMsg = ConnectionConstants::CMD_BROADCAST_WINNER + player->getName();
 		connection->sendMessage(winnerMsg);
@@ -84,21 +93,16 @@ std::vector<Strategy*> BlackjackGame::getWinners(bool turnsAreFinished) {
 
 	if (!turnsAreFinished) {
 		for (Strategy* player : players) {
-			if (player->hasNaturalBlackjack()) {
+			if (player->hasNaturalBlackjack() && player != dealer) {
 				winners.push_back(player);
 			}
 		}
 
 		return winners;
 	}
-	
-	int highScore = 0;
-	for (Strategy* player : players) {
-		if (!player->isBust() && player->getHandValue() >= highScore) {
-			if (player->getHandValue() != highScore)
-				winners.clear();
 
-			highScore = player->getHandValue();
+	for (Strategy* player : players) {
+		if (!player->isBust() && player->getHandValue() >= dealer->getHandValue() && player != dealer) {
 			winners.push_back(player);
 		}
 	}

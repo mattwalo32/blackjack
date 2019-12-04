@@ -7,6 +7,7 @@ ofApp::~ofApp() {
 //--------------------------------------------------------------
 void ofApp::setup(){
 	manager.init();
+	tableImage.load("table_background.jpg");
 }
 
 //--------------------------------------------------------------
@@ -16,7 +17,12 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+	drawBackground();
 
+}
+
+void ofApp::drawBackground() {
+	tableImage.draw(0, 0, ofGetWindowWidth(), ofGetWindowHeight());
 }
 
 //--------------------------------------------------------------
@@ -62,7 +68,10 @@ void ofApp::mouseExited(int x, int y){
 
 //--------------------------------------------------------------
 void ofApp::windowResized(int w, int h){
+	float width = w;
+	float height = width / GameConstants::ASPECT_RATIO;
 
+	//ofSetWindowShape(width, height);
 }
 
 //--------------------------------------------------------------

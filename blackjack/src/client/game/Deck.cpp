@@ -59,7 +59,8 @@ Card Deck::drawCard() {
 		return card;
 	}
 
-	throw std::runtime_error("No cards in deck");
+	reset();
+	drawCard();
 }
 
 int Deck::size() {

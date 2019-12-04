@@ -11,6 +11,7 @@ class ofApp : public ofBaseApp {
 		void setup();
 		void update();
 		void draw();
+		void drawBackground();
 		GameManager* getGameManager();
 		~ofApp();
 
@@ -29,4 +30,5 @@ class ofApp : public ofBaseApp {
 	private:
 		GameManager manager;
 		std::thread* gameThread;
+		ofImage tableImage;
 };

@@ -23,6 +23,7 @@ private:
 	Deck deck;
 	std::vector<Strategy*> players;
 	Strategy* currentPlayer;
+	Strategy* dealer;
 	ConnectionListener* connection;
 	bool gameIsRunning;
 
