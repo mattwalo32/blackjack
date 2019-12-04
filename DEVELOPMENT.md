@@ -79,3 +79,9 @@ who won the round.
 
 ### Testing
 I added catch2 testing to the project this week. I wrote about 45 assertions to test various clases and helper methods.
+
+### Graphics
+I just started implementing the graphics. I found free images to use for the background of the game and for each card. Most of my work next week will
+be finishing up the graphics.
+
+# Week Four (12/4 - 12/11)
