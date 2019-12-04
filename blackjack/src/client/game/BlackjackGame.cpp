@@ -7,9 +7,20 @@ BlackjackGame::BlackjackGame(std::vector<Strategy*> players, ConnectionListener*
 	connection = listener;
 	gameIsRunning = false;
 
-	for (Strategy* strategy : players)
+	int tableLocationOffset = 3 - (players.size() / 2);
+
+	for (int i = 0; i < players.size(); i++) {
+		Strategy* strategy = players.at(i);
+
+		int tableLocIndex = i + tableLocationOffset;
+
+		strategy->tableLocationX = GameConstants::TABLE_LOCATIONS[tableLocIndex][0];
+		strategy->tableLocationY = GameConstants::TABLE_LOCATIONS[tableLocIndex][1];
+		strategy->angle = GameConstants::TABLE_LOCATIONS[tableLocIndex][2];
+
 		if (strategy->playerIsDealer())
 			dealer = strategy;
+	}
 }
 
 /*
@@ -108,4 +119,8 @@ std::vector<Strategy*> BlackjackGame::getWinners(bool turnsAreFinished) {
 	}
 
 	return winners;
+}
+
+std::vector<Strategy*> BlackjackGame::getPlayers() {
+	return players;
 }

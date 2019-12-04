@@ -13,6 +13,7 @@ public:
 	void startGame();
 	void updatePlayerName(WsMessage msg);
 	void addPlayer(WsMessage msg);
+	BlackjackGame* getRunningGame();
 
 	std::vector<Strategy*> getPlayers();
 

@@ -15,11 +15,11 @@
 
 
 class Player : public Strategy {
-public:
+public:	
 	Player(ConnectionListener* listener, std::string name, int startingBalance);
 	void dealCard(Card card);
 	bool wantsToHit();
-	
+
 private:
 	WsMessage Player::getPlayerResponse(std::vector<std::string> expectedPrefixes, validationFunc isValid);
 

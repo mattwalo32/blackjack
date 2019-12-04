@@ -16,7 +16,11 @@
 class Strategy {
 public:
 	typedef std::function<bool(WsMessage)> validationFunc;
-	
+
+	float tableLocationX;
+	float tableLocationY;
+	float angle;
+
 	virtual void dealCard(Card card);
 	virtual bool wantsToHit();
 	

@@ -60,7 +60,7 @@ Card Deck::drawCard() {
 	}
 
 	reset();
-	drawCard();
+	return drawCard();
 }
 
 int Deck::size() {

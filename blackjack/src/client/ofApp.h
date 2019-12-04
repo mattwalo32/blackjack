@@ -8,12 +8,15 @@
 class ofApp : public ofBaseApp {
 
 	public:
+		~ofApp();
 		void setup();
 		void update();
 		void draw();
+
 		void drawBackground();
+		void drawPlayers();
+
 		GameManager* getGameManager();
-		~ofApp();
 
 		void keyPressed(int key);
 		void keyReleased(int key);
@@ -31,4 +34,5 @@ class ofApp : public ofBaseApp {
 		GameManager manager;
 		std::thread* gameThread;
 		ofImage tableImage;
+		ofImage testCard;
 };

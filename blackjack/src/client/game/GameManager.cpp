@@ -56,3 +56,7 @@ void GameManager::startGame() {
 std::vector<Strategy*> GameManager::getPlayers() {
 	return players;
 }
+
+BlackjackGame* GameManager::getRunningGame() {
+	return game;
+}
