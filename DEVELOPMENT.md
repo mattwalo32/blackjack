@@ -85,3 +85,5 @@ I just started implementing the graphics. I found free images to use for the bac
 be finishing up the graphics.
 
 # Week Four (12/4 - 12/11)
+### Graphics
+I mapped each card to a file path and got each card to be drawn.
