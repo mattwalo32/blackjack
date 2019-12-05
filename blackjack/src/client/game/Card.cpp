@@ -28,6 +28,8 @@ int Card::getValue() {
 		return 10;
 
 	return rank + 1;
+
+	throw new std::invalid_argument("Get value cannot be invoked on Aces");
 }
 
 Card::Rank Card::getRank() {

@@ -41,13 +41,15 @@ void GameManager::updatePlayerName(WsMessage msg) {
 }
 
 void GameManager::addPlayer(WsMessage msg) {
-	Player* player = new Player(&connListener, msg.getSenderName(), GameConstants::STARTING_CASH);
+	Player* player = new Player(&connListener, msg.getSenderName());
 	players.push_back(player);
 	cout << "Added " << player->getName() << endl;
 }
 
 void GameManager::startGame() {
-	cout << "Starting Game" << endl;
+	if (players.size() == 0)
+		return;
+
 	players.push_back(new Dealer());
 	game = new BlackjackGame(players, &connListener);
 	game->startGame();

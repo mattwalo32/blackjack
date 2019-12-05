@@ -8,7 +8,6 @@ ofApp::~ofApp() {
 void ofApp::setup(){
 	manager.init();
 	tableImage.load("table_background.jpg");
-	testCard.load("cards/2C.png");
 }
 
 //--------------------------------------------------------------
@@ -19,14 +18,14 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
 	drawBackground();
-	drawPlayers();
+	drawCards();
 }
 
 void ofApp::drawBackground() {
 	tableImage.draw(0, 0, ofGetWindowWidth(), ofGetWindowHeight());
 }
 
-void ofApp::drawPlayers() {
+void ofApp::drawCards() {
 	if (!manager.getRunningGame())
 		return;
 
@@ -38,12 +37,24 @@ void ofApp::drawPlayers() {
 		float w = GameConstants::PERCENT_CARD_WIDTH * ofGetWindowWidth();
 		float h = GameConstants::CARD_ASPECT_RATIO * w;
 
-		ofPushMatrix();
-		ofTranslate(x, y, 0);
-		testCard.setAnchorPercent(0.5f, 0.5f);
-		ofRotateRad(rotation);
-		testCard.draw(0, 0, w, h);
-		ofPopMatrix();
+		std::vector<std::string> paths = strategy->getHandImgPaths();
+		ofImage image;
+		int cardNum = 0;
+
+		for (std::string path : paths) {
+			image.load(path);
+			ofPushMatrix();
+
+			x += ofGetWindowWidth() * GameConstants::CARD_STACK_OFFSET[0] * cardNum;
+			y += ofGetWindowHeight() * GameConstants::CARD_STACK_OFFSET[1] * cardNum;
+
+			ofTranslate(x, y, 0);
+			image.setAnchorPercent(0.5f, 0.5f);
+			ofRotateRad(rotation);
+			image.draw(0, 0, w, h);
+			ofPopMatrix();
+			cardNum++;
+		}
 	}
 }
 

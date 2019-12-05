@@ -16,7 +16,7 @@
 
 class Player : public Strategy {
 public:	
-	Player(ConnectionListener* listener, std::string name, int startingBalance);
+	Player(ConnectionListener* listener, std::string name);
 	void dealCard(Card card);
 	bool wantsToHit();
 

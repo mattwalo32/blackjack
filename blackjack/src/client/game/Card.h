@@ -27,11 +27,11 @@ public:
 
 	Card(Rank rank, Suit suit);
 
+	int getValue();
 	Rank getRank();
 	Suit getSuit();
 	std::string getCode();
 	std::string getFilename();
-	int getValue();
 
 private:
 	Rank rank;

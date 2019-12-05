@@ -14,6 +14,7 @@ class ofApp : public ofBaseApp {
 		void draw();
 
 		void drawBackground();
+		void drawCards();
 		void drawPlayers();
 
 		GameManager* getGameManager();
@@ -34,5 +35,4 @@ class ofApp : public ofBaseApp {
 		GameManager manager;
 		std::thread* gameThread;
 		ofImage tableImage;
-		ofImage testCard;
 };

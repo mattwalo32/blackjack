@@ -21,27 +21,21 @@ public:
 	float tableLocationY;
 	float angle;
 
-	virtual void dealCard(Card card);
-	virtual bool wantsToHit();
+	virtual void dealCard(Card card) = 0;
+	virtual bool wantsToHit() = 0;
 	
-	void addToBalance(int amount);
-	void removeFromBalance(int amount);
 	void clearHand();
-	
 	void setName(std::string name);
 	void addWin();
-	int getCurrentBet();
-	int getBalance();
 	int getNumWins();
 	int getHandValue();
 	bool isBust();
 	bool hasNaturalBlackjack();
 	bool playerIsDealer();
 	std::string getName();
+	std::vector<std::string> getHandImgPaths();
 
 protected:
-	int balance;
-	int currentBet;
 	int currentHandScore;
 	int numWins;
 	bool busted;

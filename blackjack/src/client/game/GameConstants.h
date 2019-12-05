@@ -12,6 +12,8 @@ namespace GameConstants {
 	const float CARD_ASPECT_RATIO = 1.66;
 	const float PERCENT_CARD_WIDTH = 0.055;
 	const int MIDDLE_TABLE_INDEX = 3;
+	const float CARD_STACK_OFFSET[2] = { -0.03, 0.03 };
+	const float DEALER_LOCATION[3] = { 0.5, 0.15, 0 };
 	const float TABLE_LOCATIONS[7][3] = { {0.183, 0.614, 0.60} , {0.28, 0.713, 0.40}, {0.388, 0.767, 0.20}, {0.5, 0.790, 0},
 										  {0.614, 0.767, -0.20}, {0.722, 0.713, -0.40}, {0.820, 0.614, -0.60} };
 
@@ -35,8 +37,4 @@ namespace GameConstants {
 	const int ROUND_RESET_DELAY_SEC = 3;
 	const int TURN_TIME_SECONDS = 20;
 	const int TURN_TIME_MILLIS = TURN_TIME_SECONDS * 1000;
-
-	const int STARTING_CASH = 500;
-	const int MIN_BET = 20;
-	const int MAX_BET = 200;
 }

@@ -2,9 +2,9 @@
 
 using namespace GameConstants;
 
-Player::Player(ConnectionListener* listener, std::string name, int startingBalance) {
+Player::Player(ConnectionListener* listener, std::string name) {
 	this->name = name;
-	balance = startingBalance;
+	numWins = 0;
 	currentHandScore = 0;
 	busted = false;
 	naturalBlackjack = false;

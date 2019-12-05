@@ -2,10 +2,6 @@
 #include "ConnectionConstants.h"
 #include "utils/ConnectionUtils.h"
 
-//TODO: General messages
-//TODO: Betting
-//TODO: Timeleft
-
 using namespace ConnectionConstants;
 
 GameConnectionManager::~GameConnectionManager() { 
@@ -115,10 +111,12 @@ void GameConnectionManager::processCommand(seasocks::WebSocket* connection, std:
 			notifyUserTime(cmd);
 		}
 
+		// Notify player turn over
 		if (ConnectionUtils::cmdHasPrefix(cmd, CMD_TURNEND)) {
 			notifyUserTurnOver(cmd);
 		}
 
+		// Notify players of round winners
 		if (ConnectionUtils::cmdHasPrefix(cmd, CMD_BROADCAST_WINNER)) {
 			broadcastWinner(cmd);
 		}

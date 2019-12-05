@@ -29,7 +29,6 @@ private:
 	ConnectionListener* connection;
 	bool gameIsRunning;
 
-	void placeBets();
 	void dealCards();
 	void takeTurns();
 	void updateWinners(std::vector<Strategy*> winners);

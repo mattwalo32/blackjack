@@ -4,8 +4,8 @@ using namespace GameConstants;
 
 Dealer::Dealer() {
 	this->name = "Dealer";
-	balance = 0;
 	currentHandScore = 0;
+	numWins = 0;
 	busted = false;
 	naturalBlackjack = false;
 	connection = nullptr;

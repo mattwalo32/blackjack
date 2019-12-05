@@ -2,9 +2,6 @@
 
 using namespace GameConstants;
 
-void Strategy::dealCard(Card card) {};
-bool Strategy::wantsToHit() { return false;  }
-
 /*
  * Calculates the score of their
  * hand, if they busted, and if they have a natural blackjack(10 card and ace).
@@ -46,17 +43,8 @@ void Strategy::updateScore() {
 	currentHandScore = bestScore;
 }
 
-void Strategy::addToBalance(int amount) {
-	balance += amount;
-}
-
-void Strategy::removeFromBalance(int amount) {
-	balance -= amount;
-}
-
 void Strategy::clearHand() {
 	currentHand.clear();
-	currentBet = 0;
 	busted = false;
 }
 
@@ -66,14 +54,6 @@ void Strategy::addWin() {
 
 void Strategy::setName(std::string name) {
 	this->name = name;
-}
-
-int Strategy::getBalance() {
-	return balance;
-}
-
-int Strategy::getCurrentBet() {
-	return currentBet;
 }
 
 int Strategy::getNumWins() {
@@ -98,4 +78,15 @@ bool Strategy::playerIsDealer() {
 
 std::string Strategy::getName() {
 	return name;
+}
+
+std::vector<std::string> Strategy::getHandImgPaths() {
+	std::vector<std::string> paths;
+
+	for (Card card : currentHand) {
+		std::string path = "cards/" + card.getFilename() + ".png";
+		paths.push_back(path);
+	}
+
+	return paths;
 }

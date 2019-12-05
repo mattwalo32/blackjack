@@ -7,19 +7,23 @@ BlackjackGame::BlackjackGame(std::vector<Strategy*> players, ConnectionListener*
 	connection = listener;
 	gameIsRunning = false;
 
-	int tableLocationOffset = 3 - (players.size() / 2);
+	int tableLocationOffset = GameConstants::MIDDLE_TABLE_INDEX - (players.size() - 1 / 2);
 
 	for (int i = 0; i < players.size(); i++) {
 		Strategy* strategy = players.at(i);
 
 		int tableLocIndex = i + tableLocationOffset;
 
-		strategy->tableLocationX = GameConstants::TABLE_LOCATIONS[tableLocIndex][0];
-		strategy->tableLocationY = GameConstants::TABLE_LOCATIONS[tableLocIndex][1];
-		strategy->angle = GameConstants::TABLE_LOCATIONS[tableLocIndex][2];
-
-		if (strategy->playerIsDealer())
+		if (strategy->playerIsDealer()) {
+			strategy->tableLocationX = GameConstants::DEALER_LOCATION[0];
+			strategy->tableLocationY = GameConstants::DEALER_LOCATION[1];
+			strategy->angle = GameConstants::DEALER_LOCATION[2];
+		} else {
+			strategy->tableLocationX = GameConstants::TABLE_LOCATIONS[tableLocIndex][0];
+			strategy->tableLocationY = GameConstants::TABLE_LOCATIONS[tableLocIndex][1];
+			strategy->angle = GameConstants::TABLE_LOCATIONS[tableLocIndex][2];
 			dealer = strategy;
+		}	
 	}
 }
 
@@ -41,9 +45,9 @@ void BlackjackGame::startGame() {
 		}
 
 		updateWinners(winners);
+		std::this_thread::sleep_for(std::chrono::seconds(GameConstants::ROUND_RESET_DELAY_SEC));
 		winners.clear();
 		clearHand();
-		std::this_thread::sleep_for(std::chrono::seconds(GameConstants::ROUND_RESET_DELAY_SEC));
 	}
 }
 //TODO: Make sure deck isn't empty

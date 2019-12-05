@@ -43,13 +43,7 @@
     <ClCompile Include="src\client\game\BlackjackGame.cpp">
       <Filter>src\client\game</Filter>
     </ClCompile>
-    <ClCompile Include="src\client\game\Deck.cpp">
-      <Filter>src\client\game</Filter>
-    </ClCompile>
     <ClCompile Include="src\client\game\Player.cpp">
-      <Filter>src\client\game</Filter>
-    </ClCompile>
-    <ClCompile Include="src\client\game\Card.cpp">
       <Filter>src\client\game</Filter>
     </ClCompile>
     <ClCompile Include="src\client\game\utils\TimeUtils.cpp">
@@ -67,14 +61,20 @@
     <ClCompile Include="src\seasocks\src\app\c\ws_test.cpp">
       <Filter>src\server</Filter>
     </ClCompile>
-    <ClCompile Include="src\client\game\Strategy.cpp">
-      <Filter>src\client\game</Filter>
-    </ClCompile>
     <ClCompile Include="src\test\testMain.cpp">
       <Filter>src\test</Filter>
     </ClCompile>
     <ClCompile Include="src\test\gameTests.cpp">
       <Filter>src\test</Filter>
+    </ClCompile>
+    <ClCompile Include="src\client\game\Card.cpp">
+      <Filter>src\client\game\data</Filter>
+    </ClCompile>
+    <ClCompile Include="src\client\game\Deck.cpp">
+      <Filter>src\client\game\data</Filter>
+    </ClCompile>
+    <ClCompile Include="src\client\game\Strategy.cpp">
+      <Filter>src\client\game\data</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -143,6 +143,9 @@
     </Filter>
     <Filter Include="src\test">
       <UniqueIdentifier>{23e431a7-a2b5-4e07-9f25-f2cb2ceca4bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\client\game\data">
+      <UniqueIdentifier>{ad8e1880-2610-4871-a67d-165d78368b48}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -425,13 +428,7 @@
     <ClInclude Include="src\client\game\BlackjackGame.h">
       <Filter>src\client\game</Filter>
     </ClInclude>
-    <ClInclude Include="src\client\game\Deck.h">
-      <Filter>src\client\game</Filter>
-    </ClInclude>
     <ClInclude Include="src\client\game\Player.h">
-      <Filter>src\client\game</Filter>
-    </ClInclude>
-    <ClInclude Include="src\client\game\Card.h">
       <Filter>src\client\game</Filter>
     </ClInclude>
     <ClInclude Include="src\client\game\utils\TimeUtils.h">
@@ -446,11 +443,17 @@
     <ClInclude Include="src\client\game\Dealer.h">
       <Filter>src\client\game</Filter>
     </ClInclude>
-    <ClInclude Include="src\client\game\Strategy.h">
-      <Filter>src\client\game</Filter>
-    </ClInclude>
     <ClInclude Include="src\test\catch.hpp">
       <Filter>src\test</Filter>
+    </ClInclude>
+    <ClInclude Include="src\client\game\Card.h">
+      <Filter>src\client\game\data</Filter>
+    </ClInclude>
+    <ClInclude Include="src\client\game\Deck.h">
+      <Filter>src\client\game\data</Filter>
+    </ClInclude>
+    <ClInclude Include="src\client\game\Strategy.h">
+      <Filter>src\client\game\data</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
