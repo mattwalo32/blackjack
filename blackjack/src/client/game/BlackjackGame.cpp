@@ -7,7 +7,7 @@ BlackjackGame::BlackjackGame(std::vector<Strategy*> players, ConnectionListener*
 	connection = listener;
 	gameIsRunning = false;
 
-	int tableLocationOffset = GameConstants::MIDDLE_TABLE_INDEX - (players.size() - 1 / 2);
+	int tableLocationOffset = GameConstants::MIDDLE_TABLE_INDEX - ((players.size() - 1) / 2);
 
 	for (int i = 0; i < players.size(); i++) {
 		Strategy* strategy = players.at(i);
@@ -50,7 +50,6 @@ void BlackjackGame::startGame() {
 		clearHand();
 	}
 }
-//TODO: Make sure deck isn't empty
 
 void BlackjackGame::dealCards() {
 	for (int cardNum = 0; cardNum < GameConstants::NUM_STARTING_CARDS; cardNum++) {
@@ -117,7 +116,7 @@ std::vector<Strategy*> BlackjackGame::getWinners(bool turnsAreFinished) {
 	}
 
 	for (Strategy* player : players) {
-		if (!player->isBust() && player->getHandValue() >= dealer->getHandValue() && player != dealer) {
+		if (!player->isBust() && player != dealer && (player->getHandValue() >= dealer->getHandValue() || dealer->isBust())) {
 			winners.push_back(player);
 		}
 	}

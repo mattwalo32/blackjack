@@ -1,4 +1,5 @@
 #include "ofApp.h"
+#include <math.h>
 
 ofApp::~ofApp() {
 	delete gameThread;
@@ -19,6 +20,7 @@ void ofApp::update(){
 void ofApp::draw(){
 	drawBackground();
 	drawCards();
+	drawPlayers();
 }
 
 void ofApp::drawBackground() {
@@ -39,22 +41,35 @@ void ofApp::drawCards() {
 
 		std::vector<std::string> paths = strategy->getHandImgPaths();
 		ofImage image;
-		int cardNum = 0;
+
+		int cardNum = 1;
 
 		for (std::string path : paths) {
+			if (strategy->playerIsDealer() && paths.size() == 2 && cardNum == 2)
+				path = cardbackPath;
 			image.load(path);
 			ofPushMatrix();
-
-			x += ofGetWindowWidth() * GameConstants::CARD_STACK_OFFSET[0] * cardNum;
-			y += ofGetWindowHeight() * GameConstants::CARD_STACK_OFFSET[1] * cardNum;
 
 			ofTranslate(x, y, 0);
 			image.setAnchorPercent(0.5f, 0.5f);
 			ofRotateRad(rotation);
 			image.draw(0, 0, w, h);
 			ofPopMatrix();
+
+			x += ofGetWindowWidth() * GameConstants::CARD_STACK_OFFSET[0] * sin(rotation);
+			y += ofGetWindowHeight() * GameConstants::CARD_STACK_OFFSET[1] * cos(rotation);
 			cardNum++;
 		}
+	}
+}
+
+void ofApp::drawPlayers() {
+	if (!manager.getRunningGame())
+		return;
+
+	for (Strategy* strategy : manager.getRunningGame()->getPlayers()) {
+		float x = strategy->tableLocationX * ofGetWindowWidth();
+		float y = strategy->tableLocationY * ofGetWindowHeight();
 	}
 }
 

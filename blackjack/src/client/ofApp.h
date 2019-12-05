@@ -32,6 +32,7 @@ class ofApp : public ofBaseApp {
 		void gotMessage(ofMessage msg);
 
 	private:
+		const std::string cardbackPath = "cards/gray_back.png";
 		GameManager manager;
 		std::thread* gameThread;
 		ofImage tableImage;
