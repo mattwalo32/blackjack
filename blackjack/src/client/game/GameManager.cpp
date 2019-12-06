@@ -7,13 +7,13 @@ GameManager::~GameManager() {
 }
 
 void GameManager::init() {
-	/*connListener.setNameUpdateCallback([this](WsMessage msg) {
-		updatePlayerName(msg);
+	connListener.setNameUpdateCallback([this](WsMessage msg) {
+		this->updatePlayerName(msg);
 	});
 
 	connListener.setAddUserCallback([this](WsMessage msg) {
-		addPlayer(msg);
-	});*/
+		this->addPlayer(msg);
+	});
 
 	connListener.initConnection();
 }
