@@ -62,3 +62,15 @@ std::vector<Strategy*> GameManager::getPlayers() {
 BlackjackGame* GameManager::getRunningGame() {
 	return game;
 }
+
+void GameManager::stopGame() {
+	game->stopGame();
+	players.clear();
+	delete game;
+}
+
+bool GameManager::isGameRunning() {
+	if (!game)
+		return false;
+	return game->isGameRunning();
+}

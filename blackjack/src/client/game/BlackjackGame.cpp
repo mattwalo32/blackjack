@@ -27,6 +27,11 @@ BlackjackGame::BlackjackGame(std::vector<Strategy*> players, ConnectionListener*
 	}
 }
 
+BlackjackGame::~BlackjackGame() {
+	delete currentPlayer;
+	delete dealer;
+}
+
 /*
  * Runs through a game of blackjack until there are no players left. This
  * method should be run on another thread or the UI will be blocked.
@@ -56,7 +61,6 @@ void BlackjackGame::dealCards() {
 		for (Strategy* player : players) {
 			Card card = deck.drawCard();
 			player->dealCard(card);
-			cout << "Dealt " << card.getRank() << " of " << card.getSuit() << " to " << player->getName() << endl;
 		}
 	}
 }
@@ -67,13 +71,10 @@ void BlackjackGame::dealCards() {
  */
 void BlackjackGame::takeTurns() {
 	for (Strategy* player : players) {
-		cout << "Taking " << player->getName() << "'s turn" << endl;
 		while (!player->isBust() && player->wantsToHit()) {
-			cout << player->getName() << " drew a card" << endl;
 			player->dealCard(deck.drawCard());
-			cout << "Taking " << player->getName() << "'s turn" << endl;
 		}
-		cout << player->getName() << "'s turn is over" << endl;
+
 		connection->sendMessage(ConnectionConstants::CMD_TURNEND + player->getName());
 	}
 }
@@ -124,6 +125,15 @@ std::vector<Strategy*> BlackjackGame::getWinners(bool turnsAreFinished) {
 	return winners;
 }
 
+void BlackjackGame::stopGame() {
+	gameIsRunning = false;
+	players.clear();
+}
+
 std::vector<Strategy*> BlackjackGame::getPlayers() {
 	return players;
+}
+
+bool BlackjackGame::isGameRunning() {
+	return gameIsRunning;
 }

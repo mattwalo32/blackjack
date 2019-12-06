@@ -20,7 +20,7 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
 	drawBackground();
-	if (!manager.getRunningGame()) {
+	if (!manager.isGameRunning()) {
 		drawPlayerNames();
 	} else {
 		drawCards();
@@ -57,6 +57,16 @@ void ofApp::drawPlayerNames() {
 void ofApp::drawBackground() {
 	ofSetColor(255, 255, 255);
 	tableImage.draw(0, 0, ofGetWindowWidth(), ofGetWindowHeight());
+
+	std::string message = manager.isGameRunning() ? "Press ESC to exit to lobby." : "Press space to start";
+	float height = font.getLineHeight() * 0.4;
+	float width = font.getStringBoundingBox(message, 0, 0).getWidth() * 0.4;
+
+	ofPushMatrix();
+	ofTranslate((ofGetWindowWidth() - width) / 2, height, 0);
+	ofScale(0.4, 0.4, 1);
+	font.drawString(message, 0, 0);
+	ofPopMatrix();
 }
 
 void ofApp::drawCards() {
@@ -116,8 +126,10 @@ void ofApp::drawPlayers() {
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key) {
-	if(!gameThread)
+	if (!manager.isGameRunning())
 		gameThread = new std::thread(&GameManager::startGame, &manager);
+	//else
+	//	manager.stopGame();
 }
 
 //--------------------------------------------------------------

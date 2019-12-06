@@ -13,11 +13,10 @@
 class BlackjackGame {
 public:
 	BlackjackGame(std::vector<Strategy*> players, ConnectionListener* listener);
+	~BlackjackGame();
 	void startGame();
-	void resetGame();
-	void addPlayer();
-	void removePlayer();
-
+	bool isGameRunning();
+	void stopGame();
 
 	std::vector<Strategy*> getPlayers();
 
