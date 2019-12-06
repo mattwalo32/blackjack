@@ -15,6 +15,10 @@ void GameManager::init() {
 		this->addPlayer(msg);
 	});
 
+	//connListener.setRmUserCallback([this](WsMessage msg) {
+	//	this->removePlayer(msg);
+	//});
+
 	connListener.initConnection();
 }
 
@@ -44,6 +48,16 @@ void GameManager::addPlayer(WsMessage msg) {
 	Player* player = new Player(&connListener, msg.getSenderName());
 	players.push_back(player);
 	cout << "Added " << player->getName() << endl;
+}
+
+void GameManager::removePlayer(WsMessage msg) {
+	int index = 0;
+	for (Strategy* strategy : players) {
+		if (strategy->getName() == msg.getSenderName())
+			players.erase(players.begin() + index);
+
+		index++;
+	}
 }
 
 void GameManager::startGame() {

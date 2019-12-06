@@ -15,8 +15,6 @@ public:
 	BlackjackGame(std::vector<Strategy*> players, ConnectionListener* listener);
 	void startGame();
 	void resetGame();
-	void addPlayer();
-	void removePlayer();
 
 
 	std::vector<Strategy*> getPlayers();

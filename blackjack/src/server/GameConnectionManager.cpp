@@ -33,11 +33,13 @@ void GameConnectionManager::removeConnection(seasocks::WebSocket* socket) {
     int index = 0;
     bool connFound = false;
 	bool connIsCClient = false;
+	std::string connName;
 
     for (auto conn : connections) {
         if (conn->getConnection() == socket) {
             connFound = true;
 			connIsCClient = conn == cClient;
+			connName = conn->getName();
             break;
         }
 
@@ -50,6 +52,8 @@ void GameConnectionManager::removeConnection(seasocks::WebSocket* socket) {
 		//TODO: Notify players
 		if (connIsCClient)
 			reset();
+		else
+			cClient->getConnection()->send(CMD_RM_USER + connName);
 
         numConnections -= 1;
     }

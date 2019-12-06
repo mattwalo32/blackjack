@@ -20,10 +20,9 @@ namespace ConnectionConstants {
 	const std::string CMD_SEND_CARD = "SEND:";
 	const std::string CMD_ADD_USER = "ADDUSER:";
 	const std::string CMD_UPDATE_NAME = "UPDATENAME:";
-	const std::string CMD_BET = "BET:";
+	const std::string CMD_RM_USER = "REMOVEUSER:";
 	const std::string CMD_TIMELEFT = "TIMELEFT:";
 	const std::string CMD_TURNEND = "TURNEND:";
-	const std::string CMD_MSG_PLAYER = "MSG:";
 	const std::string CMD_BROADCAST_WINNER = "WINNERS:";
 
 	const std::string MSG_GAME_FULL = "Could not join, game is full.";
