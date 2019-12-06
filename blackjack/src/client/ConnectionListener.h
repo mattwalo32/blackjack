@@ -17,7 +17,6 @@ class ConnectionListener {
 		void sendMessage(std::string message);
 		void setNameUpdateCallback(msgCallback callback);
 		void setAddUserCallback(msgCallback callback);
-		void setRmUserCallback(msgCallback callback);
 
 		// Implemented methods from ofxLibwebsockets library
 		void initConnection();
@@ -32,7 +31,6 @@ class ConnectionListener {
 		std::vector<WsMessage> messageBuffer;
 		msgCallback nameUpdateCallback;
 		msgCallback addUserCallback;
-		msgCallback rmUserCallback;
 		ofxLibwebsockets::Client client;
 
 };
