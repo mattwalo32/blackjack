@@ -18,11 +18,11 @@ BlackjackGame::BlackjackGame(std::vector<Strategy*> players, ConnectionListener*
 			strategy->tableLocationX = GameConstants::DEALER_LOCATION[0];
 			strategy->tableLocationY = GameConstants::DEALER_LOCATION[1];
 			strategy->angle = GameConstants::DEALER_LOCATION[2];
+			dealer = strategy;
 		} else {
 			strategy->tableLocationX = GameConstants::TABLE_LOCATIONS[tableLocIndex][0];
 			strategy->tableLocationY = GameConstants::TABLE_LOCATIONS[tableLocIndex][1];
 			strategy->angle = GameConstants::TABLE_LOCATIONS[tableLocIndex][2];
-			dealer = strategy;
 		}	
 	}
 }
