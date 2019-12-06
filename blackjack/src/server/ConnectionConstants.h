@@ -19,6 +19,7 @@ namespace ConnectionConstants {
 	const std::string CMD_STAY = "STAY:";
 	const std::string CMD_SEND_CARD = "SEND:";
 	const std::string CMD_ADD_USER = "ADDUSER:";
+	const std::string CMD_RM_USER = "RMPLAYER:";
 	const std::string CMD_UPDATE_NAME = "UPDATENAME:";
 	const std::string CMD_BET = "BET:";
 	const std::string CMD_TIMELEFT = "TIMELEFT:";

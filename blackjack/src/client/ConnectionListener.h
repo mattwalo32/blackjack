@@ -8,15 +8,17 @@
 #include "../server/utils/ConnectionUtils.h"
 
 
-typedef std::function<void(WsMessage)> msgCallback;
 
 class ConnectionListener {
 
+	//typedef std::function<void(WsMessage)> msgCallback;
+	
 	public:
 		std::vector<WsMessage> clearBuffer();
 		void sendMessage(std::string message);
-		void setNameUpdateCallback(msgCallback callback);
-		void setAddUserCallback(msgCallback callback);
+		//void setNameUpdateCallback(msgCallback callback);
+		//void setAddUserCallback(msgCallback callback);
+		//void setRmUserCallback(msgCallback callback);
 
 		// Implemented methods from ofxLibwebsockets library
 		void initConnection();
@@ -29,8 +31,9 @@ class ConnectionListener {
 
 	private:
 		std::vector<WsMessage> messageBuffer;
-		msgCallback nameUpdateCallback;
-		msgCallback addUserCallback;
 		ofxLibwebsockets::Client client;
+		//msgCallback nameUpdateCallback;
+		//msgCallback addUserCallback;
+		//msgCallback rmUserCallback;
 
 };

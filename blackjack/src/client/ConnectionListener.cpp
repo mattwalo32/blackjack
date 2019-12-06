@@ -16,13 +16,17 @@ void ConnectionListener::initConnection(){
 	client.send(GameConstants::CMD_SET_C_CLIENT);
 }
 
-void ConnectionListener::setNameUpdateCallback(msgCallback callback) {
+/*void ConnectionListener::setNameUpdateCallback(msgCallback callback) {
 	nameUpdateCallback = callback;
 }
 
 void ConnectionListener::setAddUserCallback(msgCallback callback) {
 	addUserCallback = callback;
-}
+}*/
+
+//void ConnectionListener::setRmUserCallback(msgCallback callback) {
+//	rmUserCallback = callback;
+//}
 
 void ConnectionListener::sendMessage(std::string message) {
 	client.send(message);
@@ -56,11 +60,13 @@ void ConnectionListener::onMessage(ofxLibwebsockets::Event& args) {
 
 	// cout << msg.getMessageContents() << " From " << msg.getSenderName() << endl;
 
-	if (cmdHasPrefix(msg.getPrefix(), ConnectionConstants::CMD_UPDATE_NAME)) {
+	/*if (cmdHasPrefix(msg.getPrefix(), ConnectionConstants::CMD_UPDATE_NAME)) {
 		nameUpdateCallback(msg);
 	} else if (cmdHasPrefix(msg.getPrefix(), ConnectionConstants::CMD_ADD_USER)) {
 		addUserCallback(msg);
-	}
+	} else if (cmdHasPrefix(msg.getPrefix(), ConnectionConstants::CMD_RM_USER)) {
+		rmUserCallback(msg);	
+	}*/
 
 }
 
