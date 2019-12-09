@@ -2,10 +2,10 @@
 
 using namespace TimeUtils;
 
-BlackjackGame::BlackjackGame(std::vector<Strategy*> players, ConnectionListener* listener) {
+BlackjackGame::BlackjackGame(const std::atomic<bool>* gameRunning, std::vector<Strategy*> players, ConnectionListener* listener) {
 	this->players = players;
 	connection = listener;
-	gameIsRunning = false;
+	gameIsRunning = gameRunning;
 
 	int tableLocationOffset = GameConstants::MIDDLE_TABLE_INDEX - ((players.size() - 1) / 2);
 
@@ -37,10 +37,9 @@ BlackjackGame::~BlackjackGame() {
  * method should be run on another thread or the UI will be blocked.
  */
 void BlackjackGame::startGame() {
-	gameIsRunning = true;
 	std::vector<Strategy*> winners;
 
-	while (gameIsRunning) {
+	while (gameIsRunning->load()) {
 		dealCards();
 		winners = getWinners(false);
 
@@ -53,6 +52,8 @@ void BlackjackGame::startGame() {
 		std::this_thread::sleep_for(std::chrono::seconds(GameConstants::ROUND_RESET_DELAY_SEC));
 		winners.clear();
 		clearHand();
+
+		cout << "RUNNING" << endl;
 	}
 }
 
@@ -125,15 +126,10 @@ std::vector<Strategy*> BlackjackGame::getWinners(bool turnsAreFinished) {
 	return winners;
 }
 
-void BlackjackGame::stopGame() {
-	gameIsRunning = false;
-	players.clear();
-}
-
 std::vector<Strategy*> BlackjackGame::getPlayers() {
 	return players;
 }
 
 bool BlackjackGame::isGameRunning() {
-	return gameIsRunning;
+	return gameIsRunning->load();
 }

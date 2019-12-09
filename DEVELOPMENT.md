@@ -86,4 +86,13 @@ be finishing up the graphics.
 
 # Week Four (12/4 - 12/11)
 ### Graphics
-I mapped each card to a file path and got each card to be drawn.
+I mapped each card to a file path and got each card to be drawn as the user is dealt cards. I also added a lobby screen where it shows the names of players as the join the
+game. When the user presses space on this screen, the game starts. During the game if the user presses space at all, they will be returned to the starts screen.
+
+### Threading
+One issue that I had was being able to forcibly stopping the game thread so that I could return to the lobby. I couldn't just modify the boolean tha the loop uses because that
+would cause a race condition. After a lot of playing around, I found that I could use an atomic boolean to allow safe variable access between threads. This allowed me to stop
+the game loop from the main thread.
+
+### Refactoring
+This week I spent some time refactoring my code and cleaning it up by adding comments where needed, removing unused methods and variabled, etc.

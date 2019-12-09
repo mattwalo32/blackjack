@@ -2,7 +2,10 @@
 #include <math.h>
 
 ofApp::~ofApp() {
-	delete gameThread;
+	manager.stopGame();
+	gameThread->join();
+	std::terminate();
+	//delete gameThread;
 }
 
 //--------------------------------------------------------------
@@ -38,7 +41,7 @@ void ofApp::drawPlayerNames() {
 	float height = font.getLineHeight();
 	float offset = height * 1.5;
 
-	ofSetColor(100, 20, 10);
+	ofSetColor(100, 20, 10, 200);
 	ofRect(centerX - w/2, centerY - h/2, w, h);
 	ofSetColor(255, 255, 255);
 
@@ -58,7 +61,7 @@ void ofApp::drawBackground() {
 	ofSetColor(255, 255, 255);
 	tableImage.draw(0, 0, ofGetWindowWidth(), ofGetWindowHeight());
 
-	std::string message = manager.isGameRunning() ? "Press ESC to exit to lobby." : "Press space to start";
+	std::string message = manager.isGameRunning() ? "Press space to exit to lobby." : "Press space to start";
 	float height = font.getLineHeight() * 0.4;
 	float width = font.getStringBoundingBox(message, 0, 0).getWidth() * 0.4;
 
@@ -126,10 +129,12 @@ void ofApp::drawPlayers() {
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key) {
-	if (!manager.isGameRunning())
-		gameThread = new std::thread(&GameManager::startGame, &manager);
-	//else
-	//	manager.stopGame();
+	if (key == 32) {
+		if (!manager.isGameRunning())
+			gameThread = new std::thread(&GameManager::startGame, &manager);
+		else
+			manager.stopGame();
+	}
 }
 
 //--------------------------------------------------------------
@@ -138,7 +143,7 @@ void ofApp::keyReleased(int key){
 }
 
 //--------------------------------------------------------------
-void ofApp::mouseMoved(int x, int y ){
+void ofApp::mouseMoved(int x, int y){
 
 }
 

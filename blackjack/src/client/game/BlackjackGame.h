@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <thread>
+#include <atomic>
 #include "Player.h"
 #include "Deck.h"
 #include "GameConstants.h"
@@ -12,12 +13,11 @@
 
 class BlackjackGame {
 public:
-	BlackjackGame(std::vector<Strategy*> players, ConnectionListener* listener);
+	BlackjackGame(const atomic<bool>* gameRunning, std::vector<Strategy*> players, ConnectionListener* listener);
 	~BlackjackGame();
 	void startGame();
 	bool isGameRunning();
 	void stopGame();
-
 	std::vector<Strategy*> getPlayers();
 
 private:
@@ -26,7 +26,7 @@ private:
 	Strategy* currentPlayer;
 	Strategy* dealer;
 	ConnectionListener* connection;
-	bool gameIsRunning;
+	const std::atomic<bool>* gameIsRunning;
 
 	void dealCards();
 	void takeTurns();

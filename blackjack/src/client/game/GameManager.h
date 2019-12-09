@@ -5,6 +5,7 @@
 #include "../comm/WsMessage.h"
 #include "Strategy.h"
 #include <string>
+#include <atomic>
 
 class GameManager {
 public:

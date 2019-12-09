@@ -1,12 +1,15 @@
 #include "GameManager.h"
 #include "Dealer.h"
 
+std::atomic<bool> running(false);
+
 GameManager::~GameManager() {
 	players.clear();
 	delete game;
 }
 
 void GameManager::init() {
+	//gameRunning = false;
 	connListener.setNameUpdateCallback([this](WsMessage msg) {
 		this->updatePlayerName(msg);
 	});
@@ -51,7 +54,8 @@ void GameManager::startGame() {
 		return;
 
 	players.push_back(new Dealer());
-	game = new BlackjackGame(players, &connListener);
+	running = true;
+	game = new BlackjackGame(&running, players, &connListener);
 	game->startGame();
 }
 
@@ -64,13 +68,12 @@ BlackjackGame* GameManager::getRunningGame() {
 }
 
 void GameManager::stopGame() {
-	game->stopGame();
+	running = false;
+	//game->stopGame();
 	players.clear();
-	delete game;
+	//delete game;
 }
 
 bool GameManager::isGameRunning() {
-	if (!game)
-		return false;
-	return game->isGameRunning();
+	return running.load();
 }
