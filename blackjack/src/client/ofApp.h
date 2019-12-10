@@ -9,10 +9,16 @@ class ofApp : public ofBaseApp {
 
 	public:
 		~ofApp();
+		// Implemented OF Functions
 		void setup();
 		void update();
+		void keyPressed(int key);
+		void windowResized(int w, int h);
+		void dragEvent(ofDragInfo dragInfo);
+		void gotMessage(ofMessage msg);
 		void draw();
 
+		// Drawing helper functions
 		void drawBackground();
 		void drawCards();
 		void drawPlayerNames();
@@ -20,7 +26,7 @@ class ofApp : public ofBaseApp {
 
 		GameManager* getGameManager();
 
-		void keyPressed(int key);
+		// Unimplemented OF Functions
 		void keyReleased(int key);
 		void mouseMoved(int x, int y );
 		void mouseDragged(int x, int y, int button);
@@ -28,9 +34,6 @@ class ofApp : public ofBaseApp {
 		void mouseReleased(int x, int y, int button);
 		void mouseEntered(int x, int y);
 		void mouseExited(int x, int y);
-		void windowResized(int w, int h);
-		void dragEvent(ofDragInfo dragInfo);
-		void gotMessage(ofMessage msg);
 
 	private:
 		const std::string cardbackPath = "cards/gray_back.png";

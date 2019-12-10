@@ -3,8 +3,8 @@
 
 ofApp::~ofApp() {
 	manager.stopGame();
-	gameThread->join();
-	std::terminate();
+	//gameThread->join();
+	//std::terminate();
 	//delete gameThread;
 }
 
@@ -15,10 +15,6 @@ void ofApp::setup(){
 	font.loadFont("ArterioNonCommercial.otf", GameConstants::FONT_SIZE);
 }
 
-//--------------------------------------------------------------
-void ofApp::update(){
-
-}
 
 //--------------------------------------------------------------
 void ofApp::draw(){
@@ -31,6 +27,9 @@ void ofApp::draw(){
 	}
 }
 
+/*
+ * Draws the names of all the players that joined the game and are in the lobby.
+ */
 void ofApp::drawPlayerNames() {
 	float centerX = ofGetWindowWidth() / 2;
 	float centerY = ofGetWindowHeight() / 2;
@@ -57,6 +56,9 @@ void ofApp::drawPlayerNames() {
 	}
 }
 
+/*
+ * Draws the background image and any instruction prompts
+ */
 void ofApp::drawBackground() {
 	ofSetColor(255, 255, 255);
 	tableImage.draw(0, 0, ofGetWindowWidth(), ofGetWindowHeight());
@@ -72,6 +74,10 @@ void ofApp::drawBackground() {
 	ofPopMatrix();
 }
 
+/*
+ * Draws the cards of each player. The cards are drawn in such a way that they will be 
+ * slightly overlapping, but not completly.
+ */
 void ofApp::drawCards() {
 	for (Strategy* strategy : manager.getRunningGame()->getPlayers()) {
 		float x = strategy->tableLocationX * ofGetWindowWidth();
@@ -105,6 +111,10 @@ void ofApp::drawCards() {
 	}
 }
 
+/*
+ * Draws all the info about the players on the screen such as their names and
+ * total wins.
+ */
 void ofApp::drawPlayers() {
 	for (Strategy* strategy : manager.getRunningGame()->getPlayers()) {
 		float x = strategy->tableLocationX * ofGetWindowWidth();
@@ -135,6 +145,14 @@ void ofApp::keyPressed(int key) {
 		else
 			manager.stopGame();
 	}
+}
+
+//--------------------------------------------------------------
+void ofApp::windowResized(int w, int h) {
+	float height = h;
+	float width = height * GameConstants::WINDOW_ASPECT_RATIO;
+
+	ofSetWindowShape(width, height);
 }
 
 //--------------------------------------------------------------
@@ -173,15 +191,12 @@ void ofApp::mouseExited(int x, int y){
 }
 
 //--------------------------------------------------------------
-void ofApp::windowResized(int w, int h){
-	float height = h;
-	float width = height * GameConstants::WINDOW_ASPECT_RATIO;
+void ofApp::gotMessage(ofMessage msg){
 
-	ofSetWindowShape(width, height);
 }
 
 //--------------------------------------------------------------
-void ofApp::gotMessage(ofMessage msg){
+void ofApp::update(){
 
 }
 
