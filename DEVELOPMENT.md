@@ -87,7 +87,8 @@ be finishing up the graphics.
 # Week Four (12/4 - 12/11)
 ### Graphics
 I mapped each card to a file path and got each card to be drawn as the user is dealt cards. I also added a lobby screen where it shows the names of players as the join the
-game. When the user presses space on this screen, the game starts. During the game if the user presses space at all, they will be returned to the starts screen.
+game. When the user presses space on this screen, the game starts. During the game if the user presses space at all, they will be returned to the starts screen. I updated the
+grphics to show the score of each player throughout the round.
 
 ### Threading
 One issue that I had was being able to forcibly stopping the game thread so that I could return to the lobby. I couldn't just modify the boolean tha the loop uses because that
