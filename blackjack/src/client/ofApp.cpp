@@ -3,9 +3,6 @@
 
 ofApp::~ofApp() {
 	manager.stopGame();
-	//gameThread->join();
-	//std::terminate();
-	//delete gameThread;
 }
 
 //--------------------------------------------------------------
@@ -104,6 +101,18 @@ void ofApp::drawCards() {
 			image.draw(0, 0, w, h);
 			ofPopMatrix();
 
+			if (cardNum == paths.size()) {
+				std::string scoreInfo = "Score: " + std::to_string(strategy->getHandValue());
+				float scoreWidth = font.getStringBoundingBox(scoreInfo, 0, 0).getWidth();
+
+				ofPushMatrix();
+				ofTranslate(x, y);
+				ofRotate(rotation);
+				ofScale(0.55, 0.55, 1);
+				font.drawString(scoreInfo, -scoreWidth / 2, ofGetWindowHeight() * GameConstants::SCORE_OFFSET[1]);
+				ofPopMatrix();
+			}
+
 			x += ofGetWindowWidth() * GameConstants::CARD_STACK_OFFSET[0] * sin(rotation);
 			y += ofGetWindowHeight() * GameConstants::CARD_STACK_OFFSET[1] * cos(rotation);
 			cardNum++;
@@ -122,7 +131,7 @@ void ofApp::drawPlayers() {
 		float angle = strategy->angle;
 
 		std::string userInfo = strategy->getName();
-
+	
 		if (!strategy->playerIsDealer())
 			userInfo += "\nWins: " + std::to_string(strategy->getNumWins());
 

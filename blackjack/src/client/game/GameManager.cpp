@@ -69,7 +69,6 @@ BlackjackGame* GameManager::getRunningGame() {
 
 void GameManager::stopGame() {
 	running = false;
-	//game->stopGame();
 	players.clear();
 	//delete game;
 }
