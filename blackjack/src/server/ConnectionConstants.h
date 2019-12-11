@@ -8,7 +8,7 @@ namespace ConnectionConstants {
 
     const int CARD_COMMAND_SPLIT_INDEX = 2;
     const int CARD_CODE_LENGTH = 2;
-    const int MAX_NUM_CONNECTION = 6;
+    const int MAX_NUM_CONNECTION = 8;
     const int NUM_CARDS_IN_DECK = 52;
 
 	const std::string C_CLIENT_WIN_NAME = "Blackjack";

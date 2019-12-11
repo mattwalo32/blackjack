@@ -29,4 +29,5 @@ private:
 	
 	GameConnection* getGameConnection(seasocks::WebSocket* connection);
     GameConnection* getConnectionByName(std::string name);
+	bool connectionInGame(seasocks::WebSocket* connection);
 };

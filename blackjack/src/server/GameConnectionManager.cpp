@@ -1,6 +1,7 @@
 #include "GameConnectionManager.h"
 #include "ConnectionConstants.h"
 #include "utils/ConnectionUtils.h"
+#include <algorithm>
 
 using namespace ConnectionConstants;
 
@@ -61,6 +62,9 @@ void GameConnectionManager::removeConnection(seasocks::WebSocket* socket) {
  * will be handled is the 'set type' command.
  */
 void GameConnectionManager::processCommand(seasocks::WebSocket* connection, std::string cmd) {
+	if (!connectionInGame(connection))
+		return;
+
     GameConnection* conn = getGameConnection(connection);
 
     // Set Connection Type
@@ -233,6 +237,15 @@ GameConnection* GameConnectionManager::getGameConnection(seasocks::WebSocket* co
     }
 
     throw std::runtime_error("No GameConnection found.");
+}
+
+bool GameConnectionManager::connectionInGame(seasocks::WebSocket* connection) {
+	for (auto conn : connections) {
+		if (conn->getConnection() == connection)
+			return true;
+	}
+
+	return false;
 }
 
 /*
